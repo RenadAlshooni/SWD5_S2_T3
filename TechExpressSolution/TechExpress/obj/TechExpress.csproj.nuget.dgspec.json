@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\TechExpress\\TechExpress.csproj": {}
+    "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj": {}
   },
   "projects": {
-    "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\TechExpress\\TechExpress.csproj": {
+    "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
+        "projectUniqueName": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
         "projectName": "TechExpress",
-        "projectPath": "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
-        "packagesPath": "C:\\Users\\ibrahim hassan\\.nuget\\packages\\",
-        "outputPath": "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\TechExpress\\obj\\",
+        "projectPath": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
+        "packagesPath": "C:\\Users\\SMART\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ibrahim hassan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\SMART\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,6 +45,22 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -64,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

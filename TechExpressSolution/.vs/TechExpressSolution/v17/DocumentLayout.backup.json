@@ -1,12 +1,143 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\.NET\\Projects\\TechXpress\\SWD5_S2_T3\\TechExpressSolution\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\dataaccess\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\dataaccess\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\models\\productcolor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\models\\productcolor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|c:\\users\\smart\\desktop\\techexpress\\techexpresssolution\\techexpress\\techexpress.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0AD577B6-438A-4D24-A787-A74029EA0348}|TechExpress\\TechExpress.csproj|solutionrelative:techexpress\\techexpress.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20250313145449_CreatingProductAndCategoryTablesAndProperties.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs",
+              "RelativeDocumentMoniker": "TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs*",
+              "RelativeToolTip": "TechExpress\\Migrations\\20250313145449_CreatingProductAndCategoryTablesAndProperties.cs*",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAAC8AAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:54:49.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductColor.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\ProductColor.cs",
+              "RelativeDocumentMoniker": "TechExpress\\Models\\ProductColor.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\ProductColor.cs",
+              "RelativeToolTip": "TechExpress\\Models\\ProductColor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:38:51.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Brand.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Brand.cs",
+              "RelativeDocumentMoniker": "TechExpress\\Models\\Brand.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Brand.cs",
+              "RelativeToolTip": "TechExpress\\Models\\Brand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:38:06.664Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\DataAccess\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "TechExpress\\DataAccess\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\DataAccess\\ApplicationDbContext.cs",
+              "RelativeToolTip": "TechExpress\\DataAccess\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:19:06.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TechExpress",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
+              "RelativeDocumentMoniker": "TechExpress\\TechExpress.csproj",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\TechExpress.csproj",
+              "RelativeToolTip": "TechExpress\\TechExpress.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-13T14:18:18.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "TechExpress\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Category.cs",
+              "RelativeToolTip": "TechExpress\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:18:13.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "TechExpress\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\SMART\\Desktop\\TechExpress\\TechExpressSolution\\TechExpress\\Models\\Product.cs",
+              "RelativeToolTip": "TechExpress\\Models\\Product.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T14:13:41.021Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
