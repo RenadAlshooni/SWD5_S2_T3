@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "Layout2";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up - TechXpress</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <form class="auth-form">
+            <h2>Create an Account</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <div class="link mt-2">
+                Already have an account? <a asp-controller = "Home" asp-action="Login" >Log in</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
