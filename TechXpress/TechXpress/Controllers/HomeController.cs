@@ -17,9 +17,19 @@ namespace TechXpress.Controllers
         {
             return View();
         }
+        public IActionResult Signup()
+        {
 
       
         
+
+            return View();
+        } 
+        public IActionResult Login()
+        {
+
+            return View();
+        }
 
     }
 
