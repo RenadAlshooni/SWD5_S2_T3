@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model List<Category>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -69,8 +70,14 @@
 							<form>
 								<select class="input-select">
 									<option value="0">All Categories</option>
-									<option value="1">Category 01</option>
-									<option value="1">Category 02</option>
+                                    
+                                        <option value="1">Cameras</option>
+                                        <option value="2">Smartphones</option>
+									    <option value="3">Accessories</option>
+									    <option value="4">Headphones</option>
+                                    					    
+														 
+														  
 								</select>
 								<input class="input" placeholder="Search here">
 								<button class="search-btn">Search</button>
@@ -161,11 +168,11 @@
 				<ul class="main-nav nav navbar-nav">
 					<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
 					<li><a href="#hot-deal">Hot Deals</a></li>
-					<li><a asp-controller="Caregory" asp-action="Index">Categories</a></li>
-					<li><a asp-controller="Laptop" asp-action="Index">Laptops</a></li>
-					<li><a asp-controller="Smartphone" asp-action="Index">Smartphones</a></li>
-					<li><a asp-controller="Camera" asp-action="Index">Cameras</a></li>
-					<li><a asp-controller="Accessories" asp-action="Index">Accessories</a></li>
+					<li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
+					<li><a asp-controller="Categories" asp-action="Laptops">Laptops</a></li>
+					<li><a asp-controller="Categories" asp-action="Smartphones">Smartphones</a></li>
+					<li><a asp-controller="Categories" asp-action="Cameras">Cameras</a></li>
+					<li><a asp-controller="Categories" asp-action="Accessories">Accessories</a></li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -176,7 +183,7 @@
 	<!-- /NAVIGATION -->
 
 
-	<div class="container">
+	<div >
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>
