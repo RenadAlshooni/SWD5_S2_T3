@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace TechXpress
 {
     public class Program
@@ -8,6 +10,8 @@ namespace TechXpress
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<Context.ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 
             var app = builder.Build();
 
