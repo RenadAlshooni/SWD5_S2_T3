@@ -6,8 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>@ViewData["Title"] - TechExpress</title>
 
-
-
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.min.css" />
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css" />
@@ -21,6 +19,8 @@
 	<link rel="stylesheet" href="~/css/slick-theme.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/slick.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+	@* Main Css File *@
+	<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 
 	@* Fonts *@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -30,23 +30,22 @@
 
 </head>
 <body>
-	<header>
-		<!-- TOP HEADER -->
-		<div id="top-header">
-			<div class="container">
-				<ul class="header-links pull-left">
-					<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-					<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-				</ul>
-				<ul class="header-links pull-right">
-					
-					<li><a asp-controller="Home" asp-action="Login" class="fa fa-lock"><i></i> Login</a></li>
-					<li><a asp-controller="Home" asp-action="SignUp" class="fa fa-user-plus"><i></i> Sign Up</a></li>
-				</ul>
-			</div>
+  <header>
+	<!-- TOP HEADER -->
+	<div id="top-header">
+		<div class="container">
+				<ul class="header-links pull-left ">
+					<li><a href="#" class="text-decoration-none"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+					<li><a href="#" class="text-decoration-none"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+					<li><a href="#" class="text-decoration-none"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+			</ul>
+			<ul class="header-links pull-right">
+					<li><a asp-controller="Home" asp-action="Login" class="text-decoration-none"><i class="fa fa-dollar"></i>Login</a></li>
+					<li><a asp-controller="Home" asp-action="SignUp" class="text-decoration-none"><i class="fa fa-user-o"></i>Sign Up</a></li>
+			</ul>
 		</div>
-		<!-- /TOP HEADER -->
+	</div>
+	<!-- /TOP HEADER -->
 		<!-- MAIN HEADER -->
 		<div id="header">
 			<!-- container -->
@@ -55,8 +54,8 @@
 				<div class="row">
 					<!-- LOGO -->
 					<div class="col-md-3">
-						<div class="header-logo">
-							<a asp-controller="Home" asp-action="Index" class="logo">
+						<div class="header-logo text-decoration-none">
+							<a asp-controller="Home" asp-action="Index" class="logo text-decoration-none">
 								<p style="font-size: 30px; color: #fff; font-weight: bold;">Tech<span style="color:#d10024">X</span>press.</p>
 							</a>
 						</div>
@@ -73,8 +72,6 @@
 	</header>
 	<!-- /HEADER -->
 	
-
-
 	<div>
 		<main role="main" class="pb-3">
 			@RenderBody()
@@ -192,5 +189,6 @@
 
 
 	@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
