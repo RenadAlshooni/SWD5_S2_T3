@@ -34,14 +34,15 @@ namespace TechXpress.Context
 
             modelBuilder.Entity<Brand>()
                 .HasMany(b => b.Products)
-                .WithOne(p => p.Brand)
+                .WithOne(p => p.Brands)
                 .HasForeignKey(p => p.BrandId);
 
             modelBuilder.Entity<ProductColor>()
                 .HasKey(pc => new { pc.ProductId, pc.ColorId });
+
             modelBuilder.Entity<ProductColor>()
                 .HasOne(pc => pc.Product)
-                .WithMany(p => p.productColors)
+                .WithMany(p => p.ProductColors)
                 .HasForeignKey(pc => pc.ProductId);
 
             modelBuilder.Entity<ProductColor>()

@@ -20,4 +20,8 @@
     <Folder Include="Views\Checkout\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TechXpress_BLL\TechXpress_BLL.csproj" />
+  </ItemGroup>
+
 </Project>
