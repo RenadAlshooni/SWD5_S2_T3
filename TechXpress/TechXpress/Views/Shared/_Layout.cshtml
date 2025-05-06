@@ -168,11 +168,11 @@
 				<ul class="main-nav nav navbar-nav">
 					<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
 					<li><a href="#hot-deal">Hot Deals</a></li>
-					<li><a asp-controller="Categories" asp-action="Index">All</a></li>
-					<li><a asp-controller="Categories" asp-action="Laptops">Laptops</a></li>
-					<li><a asp-controller="Categories" asp-action="Smartphones">Smartphones</a></li>
-					<li><a asp-controller="Categories" asp-action="Cameras">Cameras</a></li>
-					<li><a asp-controller="Categories" asp-action="Accessories">Accessories</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="0">All</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="2" >Laptops</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="1">Smartphones</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="3">Cameras</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="4">Accessories</a></li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -186,6 +186,7 @@
 	<div >
 		<main role="main" class="pb-3">
 			@RenderBody()
+			
 		</main>
 	</div>
 

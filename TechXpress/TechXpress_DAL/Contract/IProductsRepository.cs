@@ -7,5 +7,8 @@ namespace TechXpress_DAL.Contract
        public List<Product> GetAllProducts();
        public List<Product> GetProductsByCategoryId(int id);
         public List<Brand> GetAllBrands();
-    }
+        public List<Product> GetProductsByBrandID(List<int> brandIds);
+
+
+     }
 }

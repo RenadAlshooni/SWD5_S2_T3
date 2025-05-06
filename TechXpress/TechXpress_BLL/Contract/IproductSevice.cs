@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechXpress.Models;
 using TechXpress_BLL.Dtos;
 
 namespace TechXpress_BLL.Contract
@@ -11,6 +12,7 @@ namespace TechXpress_BLL.Contract
     {
         public List<ProductDto> GetAllProducts();
         public List<BrandDto> GetAllBrands();
+        public List<ProductDto> GetProductsByBrandIds(List<int> brands);
 
     }
 }

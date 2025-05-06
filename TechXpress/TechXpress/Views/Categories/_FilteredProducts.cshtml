@@ -1,0 +1,55 @@
+﻿@model ALLProductsVm
+<div class="row">
+	@foreach (var product in Model.Products)
+	{
+		<div class="col-md-4 col-xs-6">
+			<div class="product">
+				<div class="product-img">
+					<img src="~/img/@product.Image" alt="">
+					<div class="product-label">
+						@if (product.HasDiscount)
+						{
+							<span class="sale">-@(product.Discount)%</span>
+						}
+						@if (product.State == "New")
+						{
+							<span class="new">NEW</span>
+						}
+					</div>
+				</div>
+				<div class="product-body">
+					<p class="product-category">@product.Category.Name</p>
+					<h3 class="product-name"><a href="#">@product.Name</a></h3>
+					<h4 class="product-price">
+						$@product.Price
+						@if (product.OldPrice > product.Price)
+						{
+							<del class="product-old-price">$@product.OldPrice</del>
+						}
+					</h4>
+					<div class="product-rating">
+						@for (int i = 0; i < 5; i++)
+						{
+							if (i < product.Rating)
+							{
+								<i class="fa fa-star"></i>
+							}
+							else
+							{
+								<i class="fa fa-star-o"></i>
+							}
+						}
+					</div>
+					<div class="product-btns">
+						<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+						<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+						<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+					</div>
+				</div>
+				<div class="add-to-cart">
+					<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+				</div>
+			</div>
+		</div>
+	}
+</div>

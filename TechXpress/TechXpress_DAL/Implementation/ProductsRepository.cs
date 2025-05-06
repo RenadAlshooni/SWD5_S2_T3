@@ -26,6 +26,14 @@ namespace TechXpress_DAL.Implementation
         {
             throw new NotImplementedException();
         }
+        public List<Product> GetProductsByBrandID(List<int> brandIds)
+        {
+       
+            return _context.Products
+                .Include(p => p.Brand)
+                .Where(p => brandIds.Contains(p.BrandId))
+                .ToList();
+        }
        
         public List<Brand> GetAllBrands()
         {

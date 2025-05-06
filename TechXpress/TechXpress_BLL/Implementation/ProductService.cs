@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechXpress.Models;
 using TechXpress_BLL.Contract;
 using TechXpress_BLL.Dtos;
 using TechXpress_DAL.Contract;
@@ -50,5 +51,26 @@ namespace TechXpress_BLL.Implementation
             }).ToList();
         return Brands;
         }
-    }
+        public List<ProductDto> GetProductsByBrandIds(List<int> brands)
+        {
+            var products = _ProductRepo.GetProductsByBrandID(brands).Select(P => new ProductDto
+            {
+                Id = P.Id,
+                Name = P.Name,
+                Description = P.Description,
+                Image = P.Image,
+                Price = P.Price,
+                OldPrice = P.OldPrice,
+                HasDiscount = P.HasDiscount,
+                Discount = P.Discount,
+                State = P.State,
+                Category = P.Category,
+                Rating = P.Rating,
+                Sold = P.Sold,
+            }).ToList();
+
+            return products;
+        }
+        
+        }
 }
