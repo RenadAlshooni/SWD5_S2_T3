@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TechXpress_BLL.Contract;
+using TechXpress_BLL.Dtos;
+using TechXpress_DAL.Contract;
+using TechXpress_DAL.Implementation;
+
+namespace TechXpress_BLL.Implementation
+{
+    public class ProductService : IproductSevice
+    {
+        private readonly IProductsRepository _ProductRepo;
+
+        public ProductService(IProductsRepository productRepo)
+        {
+            _ProductRepo = productRepo;
+        }
+
+        public List<ProductDto> GetAllProducts()
+        {
+            var products = _ProductRepo.GetAllProducts().Select( P => 
+            new ProductDto
+            {
+                Id = P.Id,
+                Name = P.Name,
+                Description = P.Description,
+                Image = P.Image,
+                Price = P.Price,
+                OldPrice = P.OldPrice,
+                HasDiscount = P.HasDiscount,
+                Discount = P.Discount,
+                State = P.State,
+                Category = P.Category,
+                Rating = P.Rating,
+                Sold = P.Sold,
+            }
+             ).ToList();
+            return products;
+        }
+        public List<BrandDto> GetAllBrands()
+        {
+            var Brands =  _ProductRepo.GetAllBrands().Select(b => new BrandDto
+            {
+                Id = b.Id,
+                Name = b.Name,
+                Description = b.Description
+            }).ToList();
+        return Brands;
+        }
+    }
+}
