@@ -22,6 +22,10 @@ namespace TechXpress_DAL.Implementation
         {
             return _context.Products.Include(P=>P.Category) .ToList();
         }
+        public List<Category> GetAllCategories()
+        {
+            return _context.Categories.ToList();
+        }
         public List<Product> GetProductsByCategoryId(int id)
         {
             throw new NotImplementedException();

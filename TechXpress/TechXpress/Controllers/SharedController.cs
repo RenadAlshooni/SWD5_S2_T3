@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechXpress.Models;
+using TechXpress_BLL.Contract;
 
 namespace TechXpress.Controllers
 {
     public class SharedController : Controller
     {
-        public IActionResult _layout()
+        private readonly IproductSevice _ProductService;
+
+        public SharedController(IproductSevice productService)
         {
+            _ProductService = productService;
+        }
+
+        public IActionResult _layout()
+        {   
             return View();
         }
     }

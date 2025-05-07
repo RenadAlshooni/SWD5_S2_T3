@@ -51,6 +51,16 @@ namespace TechXpress_BLL.Implementation
             }).ToList();
         return Brands;
         }
+        public List<categoriesDto> GetAllCategories()
+        {
+            var categories = _ProductRepo.GetAllCategories().Select(c => new categoriesDto 
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Status = c.Status
+            }).ToList();
+            return categories;
+        }
         public List<ProductDto> GetProductsByBrandIds(List<int> brands)
         {
             var products = _ProductRepo.GetProductsByBrandID(brands).Select(P => new ProductDto

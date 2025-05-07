@@ -15,8 +15,9 @@ namespace TechXpress.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index(int Id)
+        public IActionResult Index(int Id , int DisplayNumber = 5)
         {
+          
             var products = _productService.GetAllProducts().Select(
                 P => new ProductsVm
                 {
@@ -34,8 +35,8 @@ namespace TechXpress.Controllers
                     Sold = P.Sold,
                 }
             ).ToList();
-            // Apply Category filter
-            if (Id != 0)
+            //  Category filter
+            if (Id != 0)   // 0 for all Products
             {
                 products = products.Where(p => p.Category.Id == Id).ToList();
             }
@@ -50,9 +51,13 @@ namespace TechXpress.Controllers
                 }
             ).ToList();
 
-            // Calculate min and max prices for the price filter
+
+            products = products.Take(DisplayNumber).ToList();
+            
+            
+            //  min and max prices for the price filter
             decimal minPrice = products.Any() ? products.Min(p => p.Price) : 0;
-            decimal maxPrice = products.Any() ? products.Max(p => p.Price) : 1000;
+            decimal maxPrice = products.Any() ? products.Max(p => p.Price) : 5000;
 
             ALLProductsVm allProductsVm = new ALLProductsVm
             {
@@ -61,30 +66,49 @@ namespace TechXpress.Controllers
                 TopSellingProducts = TopSelling,
                 SelectedBrands = new List<int>(),
                 Min_Price = minPrice,
-                Max_Price = maxPrice
+                Max_Price = maxPrice,
+                CategoryId = Id
             };
+          
 
             return View(allProductsVm);
         }
 
         [HttpPost]
-        public IActionResult FilterProducts(List<int> selectedBrands ,decimal minPrice, decimal maxPrice)
+        public IActionResult FilterProducts(List<int> selectedBrands ,decimal minPrice, decimal maxPrice , int categoryId ,int DisplayNumber = 5 ,string SortBy = "popular" )
         {
-            // Get all products first
+            //  all products 
             var allProducts = _productService.GetAllProducts();
 
-            // Apply brand filter if any brands are selected
+            // brand filter 
             var filteredProducts = allProducts;
+
             if (selectedBrands != null && selectedBrands.Any())
             {
                 filteredProducts = _productService.GetProductsByBrandIds(selectedBrands);
             }
-           
-
-            // Apply price filter
+            //  Category filter
+            if (categoryId != 0)   // 0 for all Products
+            {
+                filteredProducts = filteredProducts.Where(p => p.Category.Id == categoryId).ToList();
+            }
+            //  price filter
             var productsWithPriceFilter = filteredProducts.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
-            
+            //sort the products
+            if(SortBy == "popular")
+
+                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P=>P.Sold).ToList();
+            else   /// sortBy == "rating"
+                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P => P.Rating).ToList();
+
+            //  display number filter
+
+            if (DisplayNumber != 0)
+            {
+                productsWithPriceFilter = productsWithPriceFilter.Take(DisplayNumber).ToList();
+            }
+            //mapping the products to the view model
             var products = productsWithPriceFilter.Select(
                 p => new ProductsVm
                 {
@@ -118,10 +142,13 @@ namespace TechXpress.Controllers
                 Min_Price = minPrice,
                 Max_Price = maxPrice
             };
+            
 
+            
             return PartialView("_FilteredProducts", productsVm);
         }
 
+       
        
     }
 }

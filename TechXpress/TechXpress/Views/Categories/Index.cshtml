@@ -82,8 +82,8 @@
 						<label>
 							Show:
 							<select class="input-select" id="show-select">
-								<option value="20">20</option>
-								<option value="50">50</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
 							</select>
 						</label>
 					</div>
@@ -99,38 +99,30 @@
 		</div>
 	</div>
 </div>
+
 <!-- /SECTION -->
 @section Scripts {
 	<script>
-		$(document).ready(function() {
-			// Initialize price slider 
-			if ($.fn.slider) {
-				$("#price-slider").slider({
-					range: true,
-					min: @Model.Min_Price,
-					max: @Model.Max_Price,
-					values: [@Model.Min_Price, @Model.Max_Price],
-					slide: function(event, ui) {
-						$("#price-min").val(ui.values[0]);
-						$("#price-max").val(ui.values[1]);
-					},
-					stop: function(event, ui) {
-						applyFilters();
-					}
-				});
-			}
+		$(document).ready(function () {
 
-			// Function to collect filter values and make AJAX request
 			function applyFilters() {
 				var selectedBrands = [];
-				$('input[name="SelectedBrands"]:checked').each(function() {
+				$('input[name="SelectedBrands"]:checked').each(function () {
 					selectedBrands.push(parseInt($(this).val()));
 				});
-
+						var SortOption = [];
+				$('#sort-select option:selected').each(function () {
+					SortOption.push($(this).val());
+				});
+						var ShowOption = [];
+				$('#show-select option:selected').each(function () {
+					ShowOption.push(parseInt($(this).val()));
+				});
 				var minPrice = $("#price-min").val();
 				var maxPrice = $("#price-max").val();
+				var categoryId = @Model.CategoryId;
 
-				// Show loading indicator
+				// Loading spinner
 				$('#filtered-products').html('<div class="text-center p-4"><i class="fa fa-spinner fa-spin"></i> Loading...</div>');
 
 				$.ajax({
@@ -139,38 +131,59 @@
 					data: {
 						selectedBrands: selectedBrands,
 						minPrice: minPrice,
-						maxPrice: maxPrice
+						maxPrice: maxPrice,
+						categoryId: categoryId,
+						DisplayNumber: ShowOption,
+						SortBy : SortOption,
 					},
-					success: function(result) {
+					success: function (result) {
 						$('#filtered-products').html(result);
 					},
-					error: function(error) {
+					error: function (error) {
 						console.log('Error applying filters:', error);
 						$('#filtered-products').html('<div class="alert alert-danger">Error loading products. Please try again.</div>');
 					}
 				});
 			}
 
-			// Apply filters when any checkbox changes
+			// Price slider
+			if ($.fn.slider) {
+				$("#price-slider").slider({
+					range: true,
+					min: @Model.Min_Price,
+					max: @Model.Max_Price,
+					values: [@Model.Min_Price, @Model.Max_Price],
+					slide: function (event, ui) {
+						$("#price-min").val(ui.values[0]);
+						$("#price-max").val(ui.values[1]);
+					},
+					stop: function (event, ui) {
+						// Trigger filter on slider stop
+						applyFilters();
+					}
+				});
+			}
+
+			// Trigger filtering on checkbox change
 			$('.filter-checkbox').on('change', applyFilters);
+			
+			// Trigger sorting on selectoption change
+			$('.input-select').on('change', applyFilters);
 
-			// Apply filters when price inputs change
-			$("#price-min, #price-max").on('change', function() {
-				// Update slider if jQuery UI is available
-				if ($.fn.slider) {
-					$("#price-slider").slider("values", [$("#price-min").val(), $("#price-max").val()]);
-				}
-				applyFilters();
-			});
+			// Trigger filtering on price manual input
+			$("#price-min, #price-max").on('change', applyFilters);
 
-			// Handle quantity up/down buttons for price inputs
-			$(".qty-up").on('click', function() {
+			// Trigger filtering on price slider change
+			$("#price-slider").on('change', applyFilters);
+
+			// Up/Down price controls
+			$(".qty-up").on('click', function () {
 				var input = $(this).siblings('input');
 				var value = parseInt(input.val()) + 1;
 				input.val(value).trigger('change');
 			});
 
-			$(".qty-down").on('click', function() {
+			$(".qty-down").on('click', function () {
 				var input = $(this).siblings('input');
 				var value = parseInt(input.val()) - 1;
 				if (value >= 0) {

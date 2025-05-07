@@ -13,6 +13,7 @@ namespace TechXpress_BLL.Contract
         public List<ProductDto> GetAllProducts();
         public List<BrandDto> GetAllBrands();
         public List<ProductDto> GetProductsByBrandIds(List<int> brands);
+        public List<categoriesDto> GetAllCategories();
 
     }
 }
