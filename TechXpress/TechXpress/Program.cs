@@ -16,7 +16,7 @@ namespace TechXpress
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer("Data Source=ALMOKABER\\SQLEXPRESS;Initial Catalog = TechXpress ;Integrated Security=True;Trust Server Certificate=True"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<IproductSevice, ProductService>();
