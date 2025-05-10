@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using TechXpress.Models;
 using TechXpress.ViewModels;
 using TechXpress_BLL.Contract;
@@ -15,9 +16,9 @@ namespace TechXpress.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index(int Id , int DisplayNumber = 5)
+        public IActionResult Index(int Id, int DisplayNumber = 10, int PageNumber = 0)
         {
-          
+            // Get all products and map to view model
             var products = _productService.GetAllProducts().Select(
                 P => new ProductsVm
                 {
@@ -34,13 +35,15 @@ namespace TechXpress.Controllers
                     Rating = P.Rating,
                     Sold = P.Sold,
                 }
-            ).ToList();
-            //  Category filter
+            );
+
+            // Category filter
             if (Id != 0)   // 0 for all Products
             {
-                products = products.Where(p => p.Category.Id == Id).ToList();
+                products = products.Where(p => p.Category.Id == Id);
             }
-            var TopSelling = products.OrderByDescending(p => p.Sold).Take(5).ToList();
+
+            var TopSelling = products.OrderByDescending(p => p.Sold).Take(3);
 
             var brands = _productService.GetAllBrands().Select(
                 b => new Brand
@@ -49,66 +52,70 @@ namespace TechXpress.Controllers
                     Name = b.Name,
                     Description = b.Description
                 }
-            ).ToList();
+            );
 
+            // Calculate total products BEFORE pagination
+            int totalProducts = products.Count();
 
-            products = products.Take(DisplayNumber).ToList();
-            
-            
-            //  min and max prices for the price filter
+            // Calculate total pages based on total products
+            int Totalpages = (int)Math.Ceiling((double)totalProducts / DisplayNumber);
+
+            // Min and max prices for the price filter - calculate from all products before pagination
             decimal minPrice = products.Any() ? products.Min(p => p.Price) : 0;
             decimal maxPrice = products.Any() ? products.Max(p => p.Price) : 5000;
 
+            // Apply pagination AFTER counting total products
+            products = products
+                    .Skip(PageNumber * DisplayNumber)
+                    .Take(DisplayNumber);
+
             ALLProductsVm allProductsVm = new ALLProductsVm
             {
-                Products = products,
-                Brands = brands,
-                TopSellingProducts = TopSelling,
+                Products = products.ToList(),
+                Brands = brands.ToList(),
+                TopSellingProducts = TopSelling.ToList(),
                 SelectedBrands = new List<int>(),
                 Min_Price = minPrice,
                 Max_Price = maxPrice,
-                CategoryId = Id
+                CategoryId = Id,
+                DisplayNumber = DisplayNumber,
+                PageNumber = PageNumber,
+                TotalProducts = totalProducts, 
+                TotalPages = Totalpages,
             };
-          
 
             return View(allProductsVm);
         }
 
         [HttpPost]
-        public IActionResult FilterProducts(List<int> selectedBrands ,decimal minPrice, decimal maxPrice , int categoryId ,int DisplayNumber = 5 ,string SortBy = "popular" )
+        public IActionResult FilterProducts(List<int> selectedBrands, decimal minPrice, decimal maxPrice, int categoryId, int DisplayNumber = 10, int PageNumber = 0, string SortBy = "popular")
         {
-            //  all products 
+            // Get all products
             var allProducts = _productService.GetAllProducts();
 
-            // brand filter 
+            // Apply brand filter
             var filteredProducts = allProducts;
-
             if (selectedBrands != null && selectedBrands.Any())
             {
                 filteredProducts = _productService.GetProductsByBrandIds(selectedBrands);
             }
-            //  Category filter
+
+            // Apply category filter
             if (categoryId != 0)   // 0 for all Products
             {
                 filteredProducts = filteredProducts.Where(p => p.Category.Id == categoryId).ToList();
             }
-            //  price filter
+
+            // Apply price filter
             var productsWithPriceFilter = filteredProducts.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
 
-            //sort the products
-            if(SortBy == "popular")
+            // Sort the products
+            if (SortBy == "popular")
+                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P => P.Sold);
+            else   // sortBy == "rating"
+                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P => P.Rating);
 
-                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P=>P.Sold).ToList();
-            else   /// sortBy == "rating"
-                productsWithPriceFilter = productsWithPriceFilter.OrderByDescending(P => P.Rating).ToList();
-
-            //  display number filter
-
-            if (DisplayNumber != 0)
-            {
-                productsWithPriceFilter = productsWithPriceFilter.Take(DisplayNumber).ToList();
-            }
-            //mapping the products to the view model
+            // Map to view model
             var products = productsWithPriceFilter.Select(
                 p => new ProductsVm
                 {
@@ -125,11 +132,23 @@ namespace TechXpress.Controllers
                     Rating = p.Rating,
                     Sold = p.Sold
                 }
-            ).ToList();
+            );
 
+            
+            int totalProducts = products.Count();
+
+            // total pages based on filtered products
+            int Totalpages = (int)Math.Ceiling((double)totalProducts / DisplayNumber);
+
+            
+            var paginatedProducts = products
+                    .Skip(PageNumber * DisplayNumber)
+                    .Take(DisplayNumber);
+
+            // map to the page view model
             var productsVm = new ALLProductsVm
             {
-                Products = products,
+                Products = paginatedProducts.ToList(),
                 Brands = _productService.GetAllBrands().Select(
                     b => new Brand
                     {
@@ -140,15 +159,15 @@ namespace TechXpress.Controllers
                 ).ToList(),
                 SelectedBrands = selectedBrands ?? new List<int>(),
                 Min_Price = minPrice,
-                Max_Price = maxPrice
+                Max_Price = maxPrice,
+                CategoryId = categoryId,
+                DisplayNumber = DisplayNumber,
+                PageNumber = PageNumber,
+                TotalProducts = totalProducts, //  the count before pagination
+                TotalPages = Totalpages,
             };
-            
 
-            
             return PartialView("_FilteredProducts", productsVm);
         }
-
-       
-       
     }
 }

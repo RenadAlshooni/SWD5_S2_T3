@@ -33,14 +33,15 @@
 						{
 							<div class="input-checkbox">
 								<input type="checkbox" name="SelectedBrands" class="filter-checkbox" value="@brand.Id" id="brand-@brand.Id"
-																		@(Model.SelectedBrands.Contains(brand.Id) ? "checked" : "") />
+								@(Model.SelectedBrands.Contains(brand.Id) ? "checked" : "") />
 								<label for="brand-@brand.Id">
-									<span></span> @brand.Name 
+									<span></span> @brand.Name
 								</label>
 							</div>
 						}
 					</div>
 				</div>
+
 				<!-- Top Selling -->
 				<div class="aside">
 					<h3 class="aside-title">Top selling</h3>
@@ -69,7 +70,6 @@
 			<!-- /ASIDE -->
 			<!-- STORE -->
 			<div id="store" class="col-md-9">
-				<!-- Filter controls -->
 				<div class="store-filter clearfix">
 					<div class="store-sort">
 						<label>
@@ -82,16 +82,14 @@
 						<label>
 							Show:
 							<select class="input-select" id="show-select">
-								<option value="5">5</option>
 								<option value="10">10</option>
+								<option value="20">20</option>
 							</select>
 						</label>
 					</div>
 				</div>
 
-				<!-- Store Products -->
-				<!-- Filtered Products -->
-				<div id="filtered-products">
+				<div id="filtered-section">
 					@await Html.PartialAsync("_FilteredProducts", Model)
 				</div>
 			</div>
@@ -99,31 +97,23 @@
 		</div>
 	</div>
 </div>
-
 <!-- /SECTION -->
 @section Scripts {
 	<script>
 		$(document).ready(function () {
-
-			function applyFilters() {
+			function applyFilters(pageNumber = 0) {
 				var selectedBrands = [];
 				$('input[name="SelectedBrands"]:checked').each(function () {
 					selectedBrands.push(parseInt($(this).val()));
 				});
-						var SortOption = [];
-				$('#sort-select option:selected').each(function () {
-					SortOption.push($(this).val());
-				});
-						var ShowOption = [];
-				$('#show-select option:selected').each(function () {
-					ShowOption.push(parseInt($(this).val()));
-				});
+
+				var SortOption = $('#sort-select').val();
+				var ShowOption = parseInt($('#show-select').val());
 				var minPrice = $("#price-min").val();
 				var maxPrice = $("#price-max").val();
 				var categoryId = @Model.CategoryId;
 
-				// Loading spinner
-				$('#filtered-products').html('<div class="text-center p-4"><i class="fa fa-spinner fa-spin"></i> Loading...</div>');
+				$('#filtered-section').html('<div class="text-center p-4"><i class="fa fa-spinner fa-spin"></i> Loading...</div>');
 
 				$.ajax({
 					url: '@Url.Action("FilterProducts", "Categories")',
@@ -134,19 +124,19 @@
 						maxPrice: maxPrice,
 						categoryId: categoryId,
 						DisplayNumber: ShowOption,
-						SortBy : SortOption,
+						PageNumber: pageNumber,
+						SortBy: SortOption
 					},
 					success: function (result) {
-						$('#filtered-products').html(result);
+						$('#filtered-section').html(result);
 					},
 					error: function (error) {
 						console.log('Error applying filters:', error);
-						$('#filtered-products').html('<div class="alert alert-danger">Error loading products. Please try again.</div>');
+						$('#filtered-section').html('<div class="alert alert-danger">Error loading products. Please try again.</div>');
 					}
 				});
 			}
 
-			// Price slider
 			if ($.fn.slider) {
 				$("#price-slider").slider({
 					range: true,
@@ -157,26 +147,29 @@
 						$("#price-min").val(ui.values[0]);
 						$("#price-max").val(ui.values[1]);
 					},
-					stop: function (event, ui) {
-						// Trigger filter on slider stop
+					stop: function () {
 						applyFilters();
 					}
 				});
 			}
 
-			// Trigger filtering on checkbox change
-			$('.filter-checkbox').on('change', applyFilters);
-			
-			// Trigger sorting on selectoption change
-			$('.input-select').on('change', applyFilters);
+			$(document).on('click', '.pagination-link', function (e) {
+				e.preventDefault();
+				var page = parseInt($(this).data('page'));
+				applyFilters(page);
+			});
 
-			// Trigger filtering on price manual input
-			$("#price-min, #price-max").on('change', applyFilters);
+			$(document).on('click', '.pagination-next', function (e) {
+				e.preventDefault();
+				var nextPage = parseInt($(this).data('page'));
+				applyFilters(nextPage);
+			});
 
-			// Trigger filtering on price slider change
-			$("#price-slider").on('change', applyFilters);
+			$('.filter-checkbox').on('change', function () { applyFilters(); });
+			$('.input-select').on('change', function () { applyFilters(); });
+			$("#price-min, #price-max").on('change', function () { applyFilters(); });
+			$("#price-slider").on('change', function () { applyFilters(); });
 
-			// Up/Down price controls
 			$(".qty-up").on('click', function () {
 				var input = $(this).siblings('input');
 				var value = parseInt(input.val()) + 1;

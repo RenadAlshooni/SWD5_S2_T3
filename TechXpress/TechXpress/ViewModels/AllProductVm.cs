@@ -16,6 +16,6 @@ namespace TechXpress.ViewModels
         public int PageNumber { get; set; } = 1;
         public int DisplayNumber { get; set; } = 5; // Products per page
         public int TotalProducts { get; set; }
-        public int TotalPages => (int)Math.Ceiling((double)TotalProducts / DisplayNumber);
+        public int TotalPages { get; set; }
     }
 }

@@ -42,8 +42,7 @@
 					</div>
 					<div class="product-btns">
 						<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-						<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+		
 					</div>
 				</div>
 				<div class="add-to-cart">
@@ -54,18 +53,42 @@
 	}
 </div>
 <!-- store bottom filter -->
-
 <div class="store-filter2 clearfix">
-	<span class="store-qty">Showing @(Model.PageNumber * Model.DisplayNumber) - @(Model.PageNumber * Model.DisplayNumber + Model.DisplayNumber) products</span>
+	<span class="store-qty">
+		@{
+			int start = 0, end = 0;
+			if (Model.TotalProducts > 0)
+			{
+				start = Model.PageNumber * Model.DisplayNumber + 1;
+				end = Math.Min(start + Model.DisplayNumber - 1, Model.TotalProducts);
+			}
+		}
+		@if (Model.TotalProducts > 0)
+		{
+			<text>Showing @start - @end of @Model.TotalProducts products</text>
+		}
+		else
+		{
+			<text>No products found</text>
+		}
+	</span>
 
 	<ul class="store-pagination">
+		
+		@for (int i = 0; i < Model.TotalPages; i++)
+		{
+			<li class="@(Model.PageNumber == i ? "active" : "")">
+				<a href="#" class="pagination-link" data-page="@i">@(i + 1)</a>
+			</li>
+		}
 
-		<li>1</li>
-		<li class="active"><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-
-
-		<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+		@if (Model.PageNumber < Model.TotalPages - 1)
+		{
+			<li>
+				<a href="#" class="pagination-next" data-page="@(Model.PageNumber + 1)">
+					<i class="fa fa-angle-right"></i>
+				</a>
+			</li>
+		}
 	</ul>
-</div> <!-- /store bottom filter -->
+</div>

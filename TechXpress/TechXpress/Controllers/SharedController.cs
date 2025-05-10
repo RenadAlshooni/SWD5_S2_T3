@@ -15,7 +15,8 @@ namespace TechXpress.Controllers
 
         public IActionResult _layout()
         {   
-            return View();
+
+            return PartialView();
         }
     }
 }
