@@ -1,0 +1,48 @@
+﻿
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Edit Product</h4>
+</div>
+<div class="modal-body">
+    <form method="post"  enctype="multipart/form-data">
+        <input type="hidden" name="Id" value="">
+        <div class="form-group">
+            <label for="editProductName">Product Name</label>
+            <input type="text" class="form-control" id="editProductName" name="Name" value="" required>
+        </div>
+        <div class="form-group">
+            <label for="editProductPrice">Price</label>
+            <input type="number" class="form-control" id="editProductPrice" name="Price" value="" required>
+        </div>
+        <div class="form-group">
+            <label for="editProductQuantity">Quantity</label>
+            <input type="number" class="form-control" id="editProductQuantity" name="Quantity" value="" required>
+        </div>
+        <div class="form-group">
+            <label for="editProductCategory">Category</label>
+            <select class="form-control" id="editProductCategory" name="CategoryId" required>
+                <option value="">Select Category</option>
+               @*  @foreach (var category in ViewBag.Categories ?? new List<Category>())
+                {
+                    <option value="@category.Id" @(Model.Category.Id == category.Id ? "selected" : "")>@category.Name</option>
+                } *@
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="editProductImage">Product Image</label>
+            <div class="current-image">
+                <img src="./img/" alt="Current Product Image" style="max-width: 100px; max-height: 100px;">
+            </div>
+            <input type="file" id="editProductImage" name="ImageFile">
+            <p class="help-block">Upload a new image to replace the current one.</p>
+        </div>
+        <div class="form-group">
+            <label for="editProductDescription">Description</label>
+            <textarea class="form-control" id="editProductDescription" name="Description" rows="3">Description</textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="primary-btn">Save Changes</button>
+        </div>
+    </form>
+</div>

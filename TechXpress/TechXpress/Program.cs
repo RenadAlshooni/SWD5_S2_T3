@@ -1,11 +1,14 @@
+using Elfie.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using TechXpress.Context;
 using TechXpress.Models;
 using TechXpress_BLL.Contract;
 using TechXpress_BLL.Implementation;
 using TechXpress_DAL.Contract;
 using TechXpress_DAL.Implementation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TechXpress
 {
@@ -18,8 +21,7 @@ namespace TechXpress
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
-
+            options.UseSqlServer("Data Source = ALMOKABER\\SQLEXPRESS;Initial Catalog = TechXpress2;Integrated Security = True; Encrypt = True; Trust Server Certificate = True"));
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<IproductSevice, ProductService>();
 
