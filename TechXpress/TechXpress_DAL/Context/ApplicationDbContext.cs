@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TechXpress.Context
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
       
@@ -19,7 +20,7 @@ namespace TechXpress.Context
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 

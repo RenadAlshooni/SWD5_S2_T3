@@ -20,7 +20,9 @@ namespace TechXpress_DAL.Implementation
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.Include(P=>P.Category) .ToList();
+            return _context.Products
+                .Include(P=>P.Category)
+                .ToList();
         }
         public List<Category> GetAllCategories()
         {
@@ -28,7 +30,12 @@ namespace TechXpress_DAL.Implementation
         }
         public List<Product> GetProductsByCategoryId(int id)
         {
-            throw new NotImplementedException();
+
+            return _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .Where(p => p.CategoryId == id)
+                .ToList();
         }
         public List<Product> GetProductsByBrandID(List<int> brandIds)
         {

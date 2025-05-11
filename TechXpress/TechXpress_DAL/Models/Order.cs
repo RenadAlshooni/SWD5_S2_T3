@@ -12,7 +12,7 @@ namespace TechXpress.Models
         public DateTime ShippingDate { get; set; }
         public float ShippingFee { get; set; }
         public int UserId { get; set; }
-        public User? User { get; set; }
+        public ApplicationUser? User { get; set; }
         public List<OrderItem>? OrderItems { get; set; }
     }
 }
