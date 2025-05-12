@@ -14,12 +14,47 @@ namespace TechXpress_BLL.Implementation
     public class ProductService : IproductSevice
     {
         private readonly IProductsRepository _ProductRepo;
+        private object model;
 
         public ProductService(IProductsRepository productRepo)
         {
             _ProductRepo = productRepo;
         }
+        void UpdateProduct(ProductDto existingProduct)
+        {
+            var product = new Product()
+            {
+                Name = existingProduct.Name,
+                Price = existingProduct.Price,
+                Description = existingProduct.Description,
 
+                Image = existingProduct.Image,
+                CategoryId = existingProduct.CategoryId,
+                BrandId = existingProduct.BrandId,
+                Quantity = existingProduct.Quantity
+
+            };
+            int id = existingProduct.Id;
+
+            _ProductRepo.UpdateProduct(product, id);
+        }
+        public int AddProduct(ProductDto product)
+        {
+            Product newProduct = new()
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Image = product.Image,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
+                BrandId = product.BrandId,
+
+            };
+            return _ProductRepo.AddProduct(newProduct);
+
+
+        }
         public List<ProductDto> GetAllProducts()
         {
             var products = _ProductRepo.GetAllProducts().Select( P => 
@@ -83,6 +118,15 @@ namespace TechXpress_BLL.Implementation
 
             return products;
         }
-        
+
+        void IproductSevice.UpdateProduct(ProductDto existingProduct)
+        {
+            UpdateProduct(existingProduct);
         }
+
+        public int DeleteProduct(int id)
+        {
+           return _ProductRepo.DeleteProduct(id);
+        }
+    }
 }
