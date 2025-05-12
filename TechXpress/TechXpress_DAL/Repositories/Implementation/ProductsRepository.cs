@@ -22,6 +22,7 @@ namespace TechXpress_DAL.Repositories.Implementation
         {
             return _context.Products
                 .Include(P=>P.Category)
+                .Include(P => P.Brand)
                 .ToList();
         }
         public List<Category> GetAllCategories()

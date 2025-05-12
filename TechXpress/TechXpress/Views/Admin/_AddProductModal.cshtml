@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Add New Product</h4>
+</div>
+<div class="modal-body">
+    <form method="post"  enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" class="form-control" id="productName" name="Name" placeholder="Enter product name" required>
+        </div>
+        <div class="form-group">
+            <label for="productPrice">Price</label>
+            <input type="number" class="form-control" id="productPrice" name="Price" placeholder="Enter price" required>
+        </div>
+        <div class="form-group">
+            <label for="productQuantity">Quantity</label>
+            <input type="number" class="form-control" id="productQuantity" name="Quantity" placeholder="Enter quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select class="form-control" id="productCategory" name="CategoryId" required>
+                <option value="">Select Category</option>
+                @foreach (var category in ViewBag.Categories ?? new List<Category>())
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="productImage">Product Image</label>
+            <input type="file" id="productImage" name="ImageFile" required>
+            <p class="help-block">Upload an image for the product.</p>
+        </div>
+        <div class="form-group">
+            <label for="productDescription">Description</label>
+            <textarea class="form-control" id="productDescription" name="Description" rows="3" placeholder="Enter product description"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="primary-btn">Add Product</button>
+        </div>
+    </form>
+</div>

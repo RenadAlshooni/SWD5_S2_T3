@@ -1,7 +1,7 @@
 ﻿@{
 	Layout = "Layout2";
 }
-
+@model List<ProductsVm>
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->
@@ -20,121 +20,43 @@
 						<div class="table-responsive">
 							<table class="table product-table">
 								<thead>
+
 									<tr>
 										<th>Image</th>
 										<th>Name</th>
 										<th>Price</th>
 										<th>Quantity</th>
 										<th>Category</th>
+										<th>Brand</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="product-img">
-												<img src="./img/product01.png" alt="Product Image">
-											</div>
-										</td>
-										<td>MacBook Pro 2022</td>
-										<td>$1,299.00</td>
-										<td>15</td>
-										<td>Laptops</td>
-										<td>
-											<div class="product-actions">
-												<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
-													<i class="fa fa-pencil"></i>
-												</button>
-												<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
-													<i class="fa fa-trash"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="product-img">
-												<img src="./img/product02.png" alt="Product Image">
-											</div>
-										</td>
-										<td>iPhone 14 Pro</td>
-										<td>$999.00</td>
-										<td>28</td>
-										<td>Smartphones</td>
-										<td>
-											<div class="product-actions">
-												<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
-													<i class="fa fa-pencil"></i>
-												</button>
-												<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
-													<i class="fa fa-trash"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="product-img">
-												<img src="./img/product03.png" alt="Product Image">
-											</div>
-										</td>
-										<td>Sony Alpha A7 IV</td>
-										<td>$2,499.00</td>
-										<td>7</td>
-										<td>Cameras</td>
-										<td>
-											<div class="product-actions">
-												<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
-													<i class="fa fa-pencil"></i>
-												</button>
-												<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
-													<i class="fa fa-trash"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="product-img">
-												<img src="./img/product04.png" alt="Product Image">
-											</div>
-										</td>
-										<td>Beats Studio Pro</td>
-										<td>$349.00</td>
-										<td>42</td>
-										<td>Accessories</td>
-										<td>
-											<div class="product-actions">
-												<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
-													<i class="fa fa-pencil"></i>
-												</button>
-												<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
-													<i class="fa fa-trash"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="product-img">
-												<img src="./img/product05.png" alt="Product Image">
-											</div>
-										</td>
-										<td>Samsung Galaxy Tab S9</td>
-										<td>$799.00</td>
-										<td>19</td>
-										<td>Tablets</td>
-										<td>
-											<div class="product-actions">
-												<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
-													<i class="fa fa-pencil"></i>
-												</button>
-												<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
-													<i class="fa fa-trash"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
+									@foreach (var product in Model)
+									{
+										<tr>
+											<td>
+												<div class="product-img">
+													<img src="./img/@product.Image" alt="Product Image">
+												</div>
+											</td>
+											<td>@product.Name</td>
+											<td>@product.Price</td>
+											<td>@product.Quantity</td>
+											<td>@product.Category.Name</td>
+											<td>@product.Brand.Name</td>
+											<td>
+												<div class="product-actions">
+													<button class="btn-edit" data-toggle="modal" data-target="#editProductModal">
+														<i class="fa fa-pencil"></i>
+													</button>
+													<button class="btn-delete" data-toggle="modal" data-target="#deleteProductModal">
+														<i class="fa fa-trash"></i>
+													</button>
+												</div>
+											</td>
+										</tr>
+									}
 								</tbody>
 							</table>
 						</div>
@@ -167,7 +89,7 @@
 				<h4 class="modal-title" id="addProductModalLabel">Add New Product</h4>
 			</div>
 			<div class="modal-body">
-				<form enctype="multipart/form-data">
+				<form method="post" asp-action="AddProduct" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="productName">Product Name</label>
 						<input type="text" class="form-control" id="productName" placeholder="Enter product name">
@@ -192,6 +114,17 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="productCategory">Brand</label>
+						<select class="form-control" id="productCategory">
+							<option value="">Select Brand</option>
+							<option value="laptops">Laptops</option>
+							<option value="smartphones">Smartphones</option>
+							<option value="cameras">Cameras</option>
+							<option value="accessories">Accessories</option>
+							<option value="tablets">Tablets</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="productImage">Product Image</label>
 						<input type="file" id="productImage">
 						<p class="help-block">Upload an image for the product.</p>
@@ -200,11 +133,11 @@
 						<label for="productDescription">Description</label>
 						<textarea class="form-control" id="productDescription" rows="3" placeholder="Enter product description"></textarea>
 					</div>
+				<button type="submit" class="primary-btn">Add Product</button>
 				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="submit" class="primary-btn">Add Product</button>
 			</div>
 		</div>
 	</div>
@@ -237,6 +170,17 @@
 						<select class="form-control" id="editProductCategory">
 							<option value="">Select Category</option>
 							<option value="laptops" selected>Laptops</option>
+							<option value="smartphones">Smartphones</option>
+							<option value="cameras">Cameras</option>
+							<option value="accessories">Accessories</option>
+							<option value="tablets">Tablets</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="productCategory">Brand</label>
+						<select class="form-control" id="productCategory">
+							<option value="">Select Brand</option>
+							<option value="laptops">Laptops</option>
 							<option value="smartphones">Smartphones</option>
 							<option value="cameras">Cameras</option>
 							<option value="accessories">Accessories</option>

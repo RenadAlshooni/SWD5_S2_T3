@@ -34,7 +34,9 @@ namespace TechXpress_BLL.Services.Implementation
                 HasDiscount = P.HasDiscount,
                 Discount = P.Discount,
                 State = P.State,
+                Quantity = P.Quantity,
                 Category = P.Category,
+                Brand = P.Brand,
                 Rating = P.Rating,
                 Sold = P.Sold,
             }
