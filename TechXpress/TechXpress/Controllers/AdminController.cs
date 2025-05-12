@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechXpress.ViewModels;
-using TechXpress_BLL.Contract;
+using TechXpress_BLL.Services.Contract;
 
 namespace TechXpress.Controllers
 {
