@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TechXpress.Context;
 using TechXpress.Models;
 
-namespace TechXpress_DAL.Implementation
+namespace TechXpress_DAL.Repositories.Implementation
 {
     public class SeedService
     {

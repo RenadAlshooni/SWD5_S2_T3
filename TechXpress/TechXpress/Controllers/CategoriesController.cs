@@ -2,8 +2,8 @@
 using System.Numerics;
 using TechXpress.Models;
 using TechXpress.ViewModels;
-using TechXpress_BLL.Contract;
-using TechXpress_BLL.Implementation;
+using TechXpress_BLL.Services.Implementation;
+using TechXpress_BLL.Services.Contract;
 
 namespace TechXpress.Controllers
 {

@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TechXpress.Context;
 using TechXpress.Models;
-using TechXpress_BLL.Contract;
-using TechXpress_BLL.Implementation;
-using TechXpress_DAL.Contract;
-using TechXpress_DAL.Implementation;
+using Stripe;
+using TechXpress_BLL.Services.Contract;
+using TechXpress_BLL.Services.Implementation;
+using TechXpress_DAL.Repositories.Contract;
+using TechXpress_DAL.Repositories.Implementation;
 
 namespace TechXpress
 {
@@ -21,7 +22,7 @@ namespace TechXpress
                 options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
 
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-            builder.Services.AddScoped<IproductSevice, ProductService>();
+            builder.Services.AddScoped<IproductSevice, ProductServices>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -34,6 +35,11 @@ namespace TechXpress
                 options.Password.RequireLowercase = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Stripe configuration
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             var app = builder.Build();
 
