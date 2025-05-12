@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using TechXpress.Context;
 using TechXpress.Models;
-using TechXpress_BLL.Contract;
-using TechXpress_BLL.Implementation;
-using TechXpress_DAL.Contract;
-using TechXpress_DAL.Implementation;
+using Stripe;
+using TechXpress_BLL.Services.Contract;
+using TechXpress_BLL.Services.Implementation;
+using TechXpress_DAL.Repositories.Contract;
+using TechXpress_DAL.Repositories.Implementation;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TechXpress
@@ -23,7 +24,7 @@ namespace TechXpress
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer("Data Source = ALMOKABER\\SQLEXPRESS;Initial Catalog = TechXpress2;Integrated Security = True; Encrypt = True; Trust Server Certificate = True"));
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-            builder.Services.AddScoped<IproductSevice, ProductService>();
+            builder.Services.AddScoped<IproductSevice, ProductServices>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -36,6 +37,11 @@ namespace TechXpress
                 options.Password.RequireLowercase = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Stripe configuration
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             var app = builder.Build();
 

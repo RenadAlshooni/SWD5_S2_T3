@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using TechXpress.Models;
 using TechXpress.ViewModels;
-using TechXpress_BLL.Contract;
-using TechXpress_BLL.Dtos;
-using TechXpress_PL.ViewModels;
+using TechXpress_BLL.Services.Contract;
 
 namespace TechXpress.Controllers
 {

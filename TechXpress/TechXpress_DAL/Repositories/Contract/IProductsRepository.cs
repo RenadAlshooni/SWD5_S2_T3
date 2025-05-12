@@ -1,6 +1,6 @@
 ﻿using TechXpress.Models;
 
-namespace TechXpress_DAL.Contract
+namespace TechXpress_DAL.Repositories.Contract
 {
     public interface IProductsRepository
     {
