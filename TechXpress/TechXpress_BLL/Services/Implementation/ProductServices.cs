@@ -20,7 +20,7 @@ namespace TechXpress_BLL.Services.Implementation
         {
             _ProductRepo = productRepo;
         }
-        void UpdateProduct(ProductDto existingProduct)
+        public  int UpdateProduct(ProductDto existingProduct)
         {
             var product = new Product()
             {
@@ -36,7 +36,7 @@ namespace TechXpress_BLL.Services.Implementation
             };
             int id = existingProduct.Id;
 
-            _ProductRepo.UpdateProduct(product, id);
+            return _ProductRepo.UpdateProduct(product, id);
         }
         public int AddProduct(ProductDto product)
         {
@@ -119,14 +119,13 @@ namespace TechXpress_BLL.Services.Implementation
             return products;
         }
 
-        void IproductSevice.UpdateProduct(ProductDto existingProduct)
-        {
-            UpdateProduct(existingProduct);
-        }
+      
 
         public int DeleteProduct(int id)
         {
            return _ProductRepo.DeleteProduct(id);
         }
+
+       
     }
 }

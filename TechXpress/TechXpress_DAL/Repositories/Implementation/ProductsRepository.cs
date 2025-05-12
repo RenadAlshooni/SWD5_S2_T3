@@ -57,7 +57,7 @@ namespace TechXpress_DAL.Repositories.Implementation
             return _context.Brands.ToList();
         }
 
-        public void UpdateProduct(Product product, int id)
+        public int UpdateProduct(Product product, int id)
         {
             var OldProduct = _context.Products.Where(p => p.Id == id).First();
 
@@ -68,7 +68,7 @@ namespace TechXpress_DAL.Repositories.Implementation
             OldProduct.CategoryId = product.CategoryId;
             OldProduct.BrandId = product.BrandId;
             OldProduct.Quantity = product.Quantity;
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         public int DeleteProduct(int id)

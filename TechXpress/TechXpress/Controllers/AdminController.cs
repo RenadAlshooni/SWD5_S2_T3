@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using TechXpress.Models;
 using TechXpress.ViewModels;
+using TechXpress_BLL.Dtos;
 using TechXpress_BLL.Services.Contract;
+using TechXpress_PL.ViewModels;
 
 namespace TechXpress.Controllers
 {
@@ -136,8 +138,9 @@ namespace TechXpress.Controllers
             existingProduct.Quantity = model.Quantity;
 
             // Save the updated product
-            _productService.UpdateProduct(existingProduct);
-            return RedirectToAction("Index");
+            if(_productService.UpdateProduct(existingProduct) > 0)
+                return RedirectToAction("Index");
+            return Content("Error , Contact the support");
         }
 
 
