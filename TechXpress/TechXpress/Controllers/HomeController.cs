@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TechXpress.Models;
-using TechXpress_BLL.Contract;
+using TechXpress_BLL.Services.Contract;
 
 namespace TechXpress.Controllers
 {

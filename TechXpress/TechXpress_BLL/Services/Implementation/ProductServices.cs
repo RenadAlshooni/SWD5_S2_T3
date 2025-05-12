@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.Models;
-using TechXpress_BLL.Contract;
 using TechXpress_BLL.Dtos;
-using TechXpress_DAL.Contract;
-using TechXpress_DAL.Implementation;
+using TechXpress_BLL.Services.Contract;
+using TechXpress_DAL.Repositories.Implementation;
+using TechXpress_DAL.Repositories.Contract;
 
-namespace TechXpress_BLL.Implementation
+namespace TechXpress_BLL.Services.Implementation
 {
-    public class ProductService : IproductSevice
+    public class ProductServices : IproductSevice
     {
         private readonly IProductsRepository _ProductRepo;
 
-        public ProductService(IProductsRepository productRepo)
+        public ProductServices(IProductsRepository productRepo)
         {
             _ProductRepo = productRepo;
         }

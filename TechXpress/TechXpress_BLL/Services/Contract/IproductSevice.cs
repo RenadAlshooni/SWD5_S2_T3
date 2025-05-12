@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TechXpress.Models;
 using TechXpress_BLL.Dtos;
 
-namespace TechXpress_BLL.Contract
+namespace TechXpress_BLL.Services.Contract
 {
    public interface IproductSevice
     {

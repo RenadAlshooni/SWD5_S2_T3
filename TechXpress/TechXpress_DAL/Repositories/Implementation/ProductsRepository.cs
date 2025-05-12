@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.Context;
 using TechXpress.Models;
-using TechXpress_DAL.Contract;
+using TechXpress_DAL.Repositories.Contract;
 
-namespace TechXpress_DAL.Implementation
+namespace TechXpress_DAL.Repositories.Implementation
 {
     public class ProductsRepository : IProductsRepository
     {
