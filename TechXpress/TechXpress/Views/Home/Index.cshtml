@@ -1,6 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+	ViewData["Title"] = "Home Page";
 }
+@model HomePageVm
 
 <!-- SECTION -->
 <div class="section">
@@ -16,7 +18,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Laptop<br>Collection</h3>
-						<a class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						<a class="cta-btn" asp-controller="Categories" asp-action="Index" asp-route-id ="2"
+						>Shop now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -29,7 +32,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Accessories<br>Collection</h3>
-						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						<a class="cta-btn" asp-controller="Categories" asp-action="Index" asp-route-id="4"
+						>Shop now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -42,7 +46,8 @@
 					</div>
 					<div class="shop-body">
 						<h3>Cameras<br>Collection</h3>
-						<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						<a class="cta-btn" asp-controller="Categories" asp-action="Index" asp-route-id="3"
+						>Shop now <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -74,148 +79,74 @@
 						<!-- tab -->
 						<div id="tab1" class="tab-pane active">
 							<div class="products-slick" data-nav="#slick-nav-1">
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
+
+								@foreach (var product in Model.NewProducts)
+								{
+									<div class="col-md-4 col-xs-6">
+										<div class="product">
+											<div class="product-img">
+												<img src="~/img/@product.Image" alt="">
+												<div class="product-label">
+													@if (product.HasDiscount)
+													{
+														<span class="sale">-@(product.Discount)%</span>
+													}
+
+													<span class="new">NEW</span>
+
+												</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category">@product.Category.Name</p>
+												<a asp-controller="Products" asp-action="Index">
+													<h3 class="product-name">@product.Name</h3>
+												</a>
+												<h4 class="product-price">
+													$@product.Price
+													@if (product.OldPrice > product.Price)
+													{
+														<del class="product-old-price">$@product.OldPrice</del>
+													}
+												</h4>
+												<div class="product-rating">
+													@for (int i = 0; i < 5; i++)
+													{
+														if (i < product.Rating)
+														{
+															<i class="fa fa-star"></i>
+														}
+														else
+														{
+															<i class="fa fa-star-o"></i>
+														}
+													}
+												</div>
+												<div class="product-btns">
+													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+
+												</div>
+											</div>
+											<div class="add-to-cart">
+												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+											</div>
 										</div>
 									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index" >product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product02.png" alt="">
-										<div class="product-label">
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product03.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product04.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index" >product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product05.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
+								}
 							</div>
-							<div id="slick-nav-1" class="products-slick-nav"></div>
+							<!-- /product -->
+
 						</div>
-						<!-- /tab -->
+						<div id="slick-nav-1" class="products-slick-nav"></div>
 					</div>
+					<!-- /tab -->
 				</div>
 			</div>
-			<!-- Products tab & slick -->
 		</div>
-		<!-- /row -->
+		<!-- Products tab & slick -->
 	</div>
-	<!-- /container -->
+	<!-- /row -->
+</div>
+<!-- /container -->
 </div>
 <!-- /SECTION -->
 <!-- HOT DEAL SECTION -->
@@ -263,447 +194,225 @@
 	<!-- /container -->
 </div>
 <!-- /HOT DEAL SECTION -->
-<!-- SECTION -->
 <div class="section">
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
 		<div class="row">
+			@if (Model.TopSelling != null && Model.TopSelling.Any())
+			{
+				var firstColumnFirstSlide = Model.TopSelling.Take(3).ToList();
+				var firstColumnSecondSlide = Model.TopSelling.Skip(3).Take(3).ToList();
 
-			<!-- section title -->
-			<div class="col-md-12">
-				<div class="section-title">
-					<h3 class="title">Top selling</h3>
-				</div>
-			</div>
-			<!-- /section title -->
-			<!-- Products tab & slick -->
-			<div class="col-md-12">
-				<div class="row">
-					<div class="products-tabs">
-						<!-- tab -->
-						<div id="tab2" class="tab-pane fade in active">
-							<div class="products-slick" data-nav="#slick-nav-2">
-								<!-- product -->
-								<div class="product">
+				var secondColumnFirstSlide = Model.TopSelling.Skip(6).Take(3).ToList();
+				var secondColumnSecondSlide = Model.TopSelling.Skip(9).Take(3).ToList();
+
+				var thirdColumnFirstSlide = Model.TopSelling.Skip(12).Take(3).ToList();
+				var thirdColumnSecondSlide = Model.TopSelling.Skip(15).Take(3).ToList();
+
+				<!-- First column -->
+				<div class="col-md-4 col-xs-6">
+					<div class="section-title">
+						<h4 class="title">Top selling</h4>
+						<div class="section-nav">
+							<div id="slick-nav-3" class="products-slick-nav"></div>
+						</div>
+					</div>
+
+					<div class="products-widget-slick" data-nav="#slick-nav-3">
+						<div>
+							@foreach (var product in firstColumnFirstSlide)
+							{
+								<!-- product widget -->
+								<div class="product-widget">
 									<div class="product-img">
-										<img src="./img/product06.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
-										</div>
+										<img src="~/img/@product.Image" alt="@product.Name">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<p class="product-category">@product.Category.Name</p>
+										<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+										@if (product.HasDiscount)
+										{
+											<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+										}
+										else
+										{
+											<h4 class="product-price">$@product.Price</h4>
+										}
 									</div>
 								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product07.png" alt="">
-										<div class="product-label">
-											<span class="new">NEW</span>
+								<!-- /product widget -->
+							}
+						</div>
+
+						@if (firstColumnSecondSlide.Any())
+						{
+							<div>
+								@foreach (var product in firstColumnSecondSlide)
+								{
+									<!-- product widget -->
+									<div class="product-widget">
+										<div class="product-img">
+											<img src="~/img/@product.Image" alt="@product.Name">
 										</div>
+										<div class="product-body">
+											<p class="product-category">@product.Category.Name</p>
+											<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+											@if (product.HasDiscount)
+											{
+												<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+											}
+											else
+											{
+												<h4 class="product-price">$@product.Price</h4>
+											}
+										</div>
+									</div>
+									<!-- /product widget -->
+								}
+							</div>
+						}
+					</div>
+				</div>
+
+				<!-- Second column -->
+				<div class="col-md-4 col-xs-6">
+					<div class="section-title">
+						<h4 class="title">Top selling</h4>
+						<div class="section-nav">
+							<div id="slick-nav-4" class="products-slick-nav"></div>
+						</div>
+					</div>
+
+					<div class="products-widget-slick" data-nav="#slick-nav-4">
+						<div>
+							@foreach (var product in secondColumnFirstSlide)
+							{
+								<!-- product widget -->
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="~/img/@product.Image" alt="@product.Name">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<p class="product-category">@product.Category.Name</p>
+										<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+										@if (product.HasDiscount)
+										{
+											<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+										}
+										else
+										{
+											<h4 class="product-price">$@product.Price</h4>
+										}
 									</div>
 								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product08.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
+								<!-- /product widget -->
+							}
+						</div>
+
+						@if (secondColumnSecondSlide.Any())
+						{
+							<div>
+								@foreach (var product in secondColumnSecondSlide)
+								{
+									<!-- product widget -->
+									<div class="product-widget">
+										<div class="product-img">
+											<img src="~/img/@product.Image" alt="@product.Name">
 										</div>
+										<div class="product-body">
+											<p class="product-category">@product.Category.Name</p>
+											<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+											@if (product.HasDiscount)
+											{
+												<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+											}
+											else
+											{
+												<h4 class="product-price">$@product.Price</h4>
+											}
+										</div>
+									</div>
+									<!-- /product widget -->
+								}
+							</div>
+						}
+					</div>
+				</div>
+
+				<div class="clearfix visible-sm visible-xs"></div>
+
+				<!-- Third column -->
+				<div class="col-md-4 col-xs-6">
+					<div class="section-title">
+						<h4 class="title">Top selling</h4>
+						<div class="section-nav">
+							<div id="slick-nav-5" class="products-slick-nav"></div>
+						</div>
+					</div>
+
+					<div class="products-widget-slick" data-nav="#slick-nav-5">
+						<div>
+							@foreach (var product in thirdColumnFirstSlide)
+							{
+								<!-- product widget -->
+								<div class="product-widget">
+									<div class="product-img">
+										<img src="~/img/@product.Image" alt="@product.Name">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product09.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-					
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<p class="product-category">@product.Category.Name</p>
+										<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+										@if (product.HasDiscount)
+										{
+											<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+										}
+										else
+										{
+											<h4 class="product-price">$@product.Price</h4>
+										}
 									</div>
 								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
+								<!-- /product widget -->
+							}
+						</div>
+
+						@if (thirdColumnSecondSlide.Any())
+						{
+							<div>
+								@foreach (var product in thirdColumnSecondSlide)
+								{
+									<!-- product widget -->
+									<div class="product-widget">
+										<div class="product-img">
+											<img src="~/img/@product.Image" alt="@product.Name">
 										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+										<div class="product-body">
+											<p class="product-category">@product.Category.Name</p>
+											<h3 class="product-name"><a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">@product.Name</a></h3>
+											@if (product.HasDiscount)
+											{
+												<h4 class="product-price">$@product.Price <del class="product-old-price">$@product.OldPrice</del></h4>
+											}
+											else
+											{
+												<h4 class="product-price">$@product.Price</h4>
+											}
 										</div>
 									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
+									<!-- /product widget -->
+								}
 							</div>
-							<div id="slick-nav-2" class="products-slick-nav"></div>
-						</div>
-						<!-- /tab -->
+						}
 					</div>
 				</div>
-			</div>
-			<!-- /Products tab & slick -->
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
-</div>
-<!-- /SECTION -->
-<!-- SECTION -->
-<div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-3" class="products-slick-nav"></div>
-					</div>
+			}
+			else
+			{
+				<div class="col-12 text-center">
+					<p>No top selling products available at the moment.</p>
 				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-3">
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product07.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product08.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product09.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product01.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product02.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product03.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-4" class="products-slick-nav"></div>
-					</div>
-				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-4">
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product04.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product05.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product06.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product07.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product08.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product09.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-				</div>
-			</div>
-
-			<div class="clearfix visible-sm visible-xs"></div>
-
-			<div class="col-md-4 col-xs-6">
-				<div class="section-title">
-					<h4 class="title">Top selling</h4>
-					<div class="section-nav">
-						<div id="slick-nav-5" class="products-slick-nav"></div>
-					</div>
-				</div>
-
-				<div class="products-widget-slick" data-nav="#slick-nav-5">
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product01.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product02.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product03.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-
-					<div>
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product04.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product05.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- /product widget -->
-						<!-- product widget -->
-						<div class="product-widget">
-							<div class="product-img">
-								<img src="./img/product06.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a asp-controller="Products" asp-action="Index">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-							</div>
-						</div>
-						<!-- product widget -->
-					</div>
-				</div>
-			</div>
-
+			}
 		</div>
 		<!-- /row -->
 	</div>

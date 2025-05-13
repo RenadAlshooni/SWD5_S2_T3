@@ -45,7 +45,9 @@ namespace TechXpress.Controllers
             if (Id != 0)   // 0 for all Products
             {
                 products = products.Where(p => p.Category.Id == Id);
+                
             }
+            ViewBag.ActiveNavItem = Id;
 
             var TopSelling = products.OrderByDescending(p => p.Sold).Take(3);
 
