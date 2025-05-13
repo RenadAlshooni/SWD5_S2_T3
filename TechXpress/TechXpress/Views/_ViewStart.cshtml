@@ -1,3 +1,18 @@
-﻿@{
+﻿@using TechXpress_PL.ViewModels
+@{
     Layout = "_Layout";
+}
+@{
+
+    var categories = new List<CategoryVm>()
+        {
+            new CategoryVm { Id = 2, Name = "Laptops" },
+            new CategoryVm { Id = 1, Name = "Smartphones" },
+            new CategoryVm { Id = 3, Name = "Cameras" },
+            new CategoryVm { Id = 4, Name = "Accessories" },
+        };
+
+    ViewBag.Categories = categories;
+           
+    }
 }
