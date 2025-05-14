@@ -50,35 +50,41 @@
 
 					@if (User.Identity.IsAuthenticated)
 					{
-						<div class="dropdown">
-							<button class="cta-btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bi bi-person-circle me-1"></i> @User.Identity.Name
+						<li class="dropdown">
+							<button class="cta-btn dropdown-toggle header-links" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fa fa-user-o me-1"></i> @User.Identity.Name
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="userDropdown">
-								<li><a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="fa fa-user-o"></i> My Account</a>
+								<li>
+									<a class="dropdown-item" asp-controller="Profile" asp-action="Index">
+										<i class="fa fa-user-o"></i> My Account
+									</a>
 								</li>
 								<li><hr class="dropdown-divider"></li>
 								<li>
 									@using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "form-inline", id = "logoutForm" }))
 									{
 										@Html.AntiForgeryToken()
-										<button type="submit" class="dropdown-item">Logout</button>
+										<button type="submit" class="dropdown-item">
+											<i class="fa fa-sign-out"></i> Logout
+										</button>
 									}
 								</li>
 							</ul>
-						</div>
+						</li>
 					}
 					else
 					{
 						<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-user-o"></i> Login</a></li>
-					})
-					
+					}
+
 					@if (User.IsInRole("Admin"))
 					{
-						<li><a asp-controller="Admin" asp-action="Index"><i class="fa fa-dashboard"></i> dashboard</a></li>
+						<li><a asp-controller="Admin" asp-action="Index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 					}
-					
 				</ul>
+
+
 			</div>
 		</div>
 		<!-- /TOP HEADER -->
