@@ -19,6 +19,12 @@
 <body>
 
     <div class="auth-wrapper">
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i> @ViewBag.ErrorMessage
+            </div>
+        }
         <form class="auth-form" asp-action="Login"> 
             <h2>Login to Your Account</h2>
             <div class="form-group">

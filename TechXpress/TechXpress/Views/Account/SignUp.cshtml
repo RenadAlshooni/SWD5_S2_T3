@@ -15,6 +15,13 @@
 <body>
 
     <div class="auth-wrapper">
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i> @ViewBag.ErrorMessage
+            </div>
+        }
         <form class="auth-form" asp-action="SignUp">
             <h2>Create Account</h2>
             <div class="form-group">
@@ -26,6 +33,20 @@
                 <label asp-for="Email"></label>
                 <input asp-for="Email" type="email" class="form-control">
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" type="text" class="form-control">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="UserType"></label>
+                <select asp-for="UserType" class="form-control">
+                    
+                    <option value="2">Customer</option>
+                    <option value="1">Admin</option>
+                </select>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>

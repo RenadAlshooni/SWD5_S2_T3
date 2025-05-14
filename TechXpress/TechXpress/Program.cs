@@ -21,9 +21,11 @@ namespace TechXpress
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Data Source = ALMOKABER\\SQLEXPRESS;Initial Catalog = TechXpress2;Integrated Security = True; Encrypt = True; Trust Server Certificate = True"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<IproductSevice, ProductService>();
+            builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -49,7 +51,6 @@ namespace TechXpress
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(
