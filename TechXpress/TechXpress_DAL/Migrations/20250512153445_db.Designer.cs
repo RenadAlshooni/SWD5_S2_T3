@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechXpress.Context;
 
@@ -11,9 +12,11 @@ using TechXpress.Context;
 namespace TechXpress_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512153445_db")]
+    partial class db
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,9 +197,6 @@ namespace TechXpress_DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("OrderID")
-                        .HasColumnType("int");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,9 +220,6 @@ namespace TechXpress_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UserTypeID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WishlistID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -306,9 +303,6 @@ namespace TechXpress_DAL.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderID")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
 
@@ -321,12 +315,15 @@ namespace TechXpress_DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -481,16 +478,13 @@ namespace TechXpress_DAL.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WishlistID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("WishlistID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Wishlists");
                 });
@@ -550,7 +544,7 @@ namespace TechXpress_DAL.Migrations
                 {
                     b.HasOne("TechXpress.Models.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("OrderID");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -621,8 +615,10 @@ namespace TechXpress_DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("TechXpress.Models.ApplicationUser", "User")
-                        .WithMany("Wishlists")
-                        .HasForeignKey("WishlistID");
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
 
@@ -632,8 +628,6 @@ namespace TechXpress_DAL.Migrations
             modelBuilder.Entity("TechXpress.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Wishlists");
                 });
 
             modelBuilder.Entity("TechXpress.Models.Brand", b =>

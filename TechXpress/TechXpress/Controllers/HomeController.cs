@@ -56,16 +56,7 @@ namespace TechXpress.Controllers
             };
             return View(homePageVm);
         }
-        public IActionResult Signup()
-        {
-
-            return View();
-        } 
-        public IActionResult Login()
-        {
-
-            return View();
-        }
+       
 
     }
 
