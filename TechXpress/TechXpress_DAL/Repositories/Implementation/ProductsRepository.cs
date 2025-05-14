@@ -30,6 +30,15 @@ namespace TechXpress_DAL.Repositories.Implementation
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+=======
+        }
+>>>>>>> 0cbe2171ac8f25ac83380e1fc7d6a195a19c5146:TechXpress/TechXpress_DAL/Repositories/Implementation/ProductsRepository.cs
+=======
+        }
+>>>>>>> 0cbe2171ac8f25ac83380e1fc7d6a195a19c5146:TechXpress/TechXpress_DAL/Repositories/Implementation/ProductsRepository.cs
+=======
+        }
+>>>>>>> 0cbe2171ac8f25ac83380e1fc7d6a195a19c5146:TechXpress/TechXpress_DAL/Repositories/Implementation/ProductsRepository.cs
         public List<Product> GetAllProducts()
         {
             return _context.Products

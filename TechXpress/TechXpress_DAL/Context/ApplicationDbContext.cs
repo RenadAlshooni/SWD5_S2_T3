@@ -23,8 +23,9 @@ namespace TechXpress.Context
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
-        
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Category>()
@@ -69,7 +70,7 @@ namespace TechXpress.Context
         //        .HasOne(oi => oi.Product)
         //        .WithMany(p => p.OrderItems);
 
-           
+
         //}
     }
 }
