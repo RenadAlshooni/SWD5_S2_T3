@@ -52,6 +52,7 @@ namespace TechXpress
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
             builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -61,6 +62,9 @@ namespace TechXpress
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseSession();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

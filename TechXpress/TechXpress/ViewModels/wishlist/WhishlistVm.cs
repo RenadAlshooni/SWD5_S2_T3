@@ -1,4 +1,4 @@
-﻿namespace TechXpress_PL.ViewModels
+﻿namespace TechXpress_PL.ViewModels.wishlist
 {
     public class WhishlistVm
     {
