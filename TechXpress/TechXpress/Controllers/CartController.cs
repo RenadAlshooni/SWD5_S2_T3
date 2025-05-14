@@ -38,16 +38,17 @@ namespace TechXpress.Controllers
 
         public IActionResult Index()
         {
-            var cart = GetCart();
+            //var cart = GetCart();
+            var cart = _context.Carts.ToList();
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var userCart = cart.Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
             return View(userCart);
         }
 
-        public IActionResult AddToCart(int productId , decimal price, string imageUrl , int quantity)
+        public IActionResult AddToCart(int productId ,string ProductName, decimal price, string imageUrl , int quantity = 1)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var cart = GetCart();
+            var cart = _context.Carts.Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
             var existingCartItem = cart.FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
             if (existingCartItem != null)
             {
@@ -55,8 +56,9 @@ namespace TechXpress.Controllers
             }
             else
             {
-                cart.Add(new Cart {
+                _context.Add(new Cart {
                     ProductId = productId,
+                    ProductName = ProductName,
                     UserId = userId,
                     Quantity = quantity,
                     IsDeleted = false,
@@ -64,7 +66,7 @@ namespace TechXpress.Controllers
                     Price = price
                 });
             }
-            SaveCart(cart);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 

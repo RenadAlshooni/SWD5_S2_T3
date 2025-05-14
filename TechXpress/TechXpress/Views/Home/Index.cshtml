@@ -127,7 +127,10 @@
 												</div>
 											</div>
 											<div class="add-to-cart">
+												<a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id"
+												   asp-route-price="@product.Price" asp-route-imageUrl="@product.Image" asp-route-ProductName="@product.Name">
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													</a>
 											</div>
 										</div>
 									</div>
