@@ -1,6 +1,6 @@
 ﻿using TechXpress.Models;
 
-namespace TechXpress_DAL.Contract
+namespace TechXpress_DAL.Repositories.Contract
 {
     public interface IProductsRepository
     {
@@ -10,7 +10,8 @@ namespace TechXpress_DAL.Contract
         public List<Brand> GetAllBrands();
         public List<Category> GetAllCategories();
         public List<Product> GetProductsByBrandID(List<int> brandIds);
-
-
-     }
+        public int AddProduct(Product product);
+        int UpdateProduct(Product product, int id);
+        int DeleteProduct(int id);
+    }
 }

@@ -4,22 +4,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.Models;
-using TechXpress_BLL.Contract;
 using TechXpress_BLL.Dtos;
-using TechXpress_DAL.Contract;
-using TechXpress_DAL.Implementation;
+using TechXpress_BLL.Services.Contract;
+using TechXpress_DAL.Repositories.Implementation;
+using TechXpress_DAL.Repositories.Contract;
 
-namespace TechXpress_BLL.Implementation
+namespace TechXpress_BLL.Services.Implementation
 {
-    public class ProductService : IproductSevice
+    public class ProductServices : IproductSevice
     {
         private readonly IProductsRepository _ProductRepo;
+        private object model;
 
-        public ProductService(IProductsRepository productRepo)
+        public ProductServices(IProductsRepository productRepo)
         {
             _ProductRepo = productRepo;
         }
+        public  int UpdateProduct(ProductDto existingProduct)
+        {
+            var product = new Product()
+            {
+                Name = existingProduct.Name,
+                Price = existingProduct.Price,
+                Description = existingProduct.Description,
 
+                Image = existingProduct.Image,
+                CategoryId = existingProduct.CategoryId,
+                BrandId = existingProduct.BrandId,
+                Quantity = existingProduct.Quantity
+
+            };
+            int id = existingProduct.Id;
+
+            return _ProductRepo.UpdateProduct(product, id);
+        }
+        public int AddProduct(ProductDto product)
+        {
+            Product newProduct = new()
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Image = product.Image,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
+                BrandId = product.BrandId,
+
+            };
+            return _ProductRepo.AddProduct(newProduct);
+
+
+        }
         public List<ProductDto> GetAllProducts()
         {
             var products = _ProductRepo.GetAllProducts().Select( P => 
@@ -83,6 +118,14 @@ namespace TechXpress_BLL.Implementation
 
             return products;
         }
-        
+
+      
+
+        public int DeleteProduct(int id)
+        {
+           return _ProductRepo.DeleteProduct(id);
         }
+
+       
+    }
 }

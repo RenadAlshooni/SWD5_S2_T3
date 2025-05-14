@@ -100,15 +100,16 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6 col-sm-8 col-12 mt-2 mt-sm-0">
 						<div class="header-search">
-							<form method="post">
-								<select class="input-select">
+							<form method="get" asp-controller="Categories" asp-action="Index">
+								<select class="input-select" name="Id">
+
 									<option value="0">All Categories</option>
-									<option value="1">Cameras</option>
-									<option value="2">Smartphones</option>
-									<option value="3">Accessories</option>
-									<option value="4">Headphones</option>
+									@foreach (var category in ViewBag.Categories)
+									{
+										<option value="@category.Id">@category.Name</option>
+									}
 								</select>
-								<input class="input" placeholder="Search here">
+								<input class="input" placeholder="Search here" name="ProductName">
 								<button class="search-btn">Search</button>
 							</form>
 						</div>
@@ -195,14 +196,21 @@
 			<div id="responsive-nav">
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
-					<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-controller="Home" asp-action="Index">Home</a></li>
 					<li><a href="#hot-deal">Hot Deals</a></li>
-					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="0">All</a></li>
-					@* @foreach (var category in ) *@
-					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="2" >Laptops</a></li>
-					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="1">Smartphones</a></li>
-					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="3">Cameras</a></li>
-					<li><a asp-controller="Categories" asp-action="Index" asp-route-id ="4">Accessories</a></li>
+					<li><a asp-controller="Categories" asp-action="Index" asp-route-id="0">All</a></li>
+
+					@if (ViewBag.Categories != null)
+					{
+						foreach (var category in ViewBag.Categories)
+						{
+							<li>
+								<a asp-controller="Categories" asp-action="Index" asp-route-id="@category.Id">
+									@category.Name
+								</a>
+							</li>
+						}
+					}
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -211,8 +219,6 @@
 		<!-- /container -->
 	</nav>
 	<!-- /NAVIGATION -->
-
-
 	<div >
 		<main role="main" class="pb-3">
 			@RenderBody()
@@ -364,7 +370,133 @@
 	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+	
+	<script>
+		$(document).ready(function() {
+			// Log current URL for debugging
+			console.log("Current URL:", window.location.href);
 
+			// Set active class on page load
+			setActiveNavItem();
+
+			// Handle click events
+			$('.main-nav li a').on('click', function() {
+				$('.main-nav li').removeClass('active');
+				$(this).parent('li').addClass('active');
+			});
+				$('.search-btn').on('click', function() {
+				$('.main-nav li').removeClass('active');
+				$(this).parent('li').addClass('active');
+			});
+
+			function setActiveNavItem() {
+				// Get current URL information
+				var fullUrl = window.location.href;
+				var path = window.location.pathname;
+
+				// Extract category ID from both query string and route
+				var categoryId = null;
+
+				// Check query string first (e.g., /Categories/Index?id=1)
+				var urlParams = new URLSearchParams(window.location.search);
+				if (urlParams.has('id')) {
+					categoryId = urlParams.get('id');
+					console.log("Category ID from query string:", categoryId);
+				}
+				// Then check route segments (e.g., /Categories/Index/1 or /Categories/1)
+				else {
+					var segments = path.split('/').filter(function(segment) {
+						return segment.length > 0;
+					});
+
+					// If we have a path like /Categories/1 or /Categories/Index/1
+					if (segments.length >= 2 && segments[0].toLowerCase() === 'categories') {
+						var lastSegment = segments[segments.length - 1];
+						if (!isNaN(lastSegment)) {
+							categoryId = lastSegment;
+							console.log("Category ID from route:", categoryId);
+						}
+					}
+				}
+
+				// Remove active class from all items
+				$('.main-nav li').removeClass('active');
+
+				// Log all navigation links for debugging
+				console.log("Navigation links:");
+				$('.main-nav li a').each(function() {
+					console.log($(this).text() + " - " + $(this).attr('href'));
+				});
+
+				// Set active class based on current page
+				if (path.toLowerCase().includes('/categories')) {
+					console.log("On Categories page with ID:", categoryId);
+
+					// If no category ID or ID is 0, highlight "All" category
+					if (!categoryId || categoryId === '0') {
+						// Find the "All" link
+						var allCategoryFound = false;
+						$('.main-nav li a').each(function() {
+							var href = $(this).attr('href');
+							if ($(this).text().trim() === 'All' ||
+								(href && (href.includes('/Categories') || href.includes('/categories')) &&
+								 (href.includes('id=0') || href.endsWith('/0')))) {
+								$(this).parent().addClass('active');
+								allCategoryFound = true;
+								console.log("Set 'All' category as active");
+								return false;
+							}
+						});
+
+						if (!allCategoryFound) {
+							// Fallback: find the third link (usually "All")
+							$('.main-nav li:eq(2)').addClass('active');
+							console.log("Fallback: Set third nav item as active");
+						}
+					} else {
+						// For specific category, compare by ID
+						var categoryFound = false;
+						$('.main-nav li a').each(function() {
+							var href = $(this).attr('href');
+							if (href) {
+								// Check for ID in query string format
+								if (href.includes('id=' + categoryId)) {
+									$(this).parent().addClass('active');
+									categoryFound = true;
+									console.log("Set category active by query string match:", $(this).text());
+									return false;
+								}
+
+								// Check for ID in route segment format
+								var hrefSegments = href.split('/').filter(function(segment) {
+									return segment.length > 0;
+								});
+								var lastSegment = hrefSegments[hrefSegments.length - 1];
+								if (lastSegment === categoryId) {
+									$(this).parent().addClass('active');
+									categoryFound = true;
+									console.log("Set category active by route segment match:", $(this).text());
+									return false;
+								}
+							}
+						});
+
+						if (!categoryFound) {
+							console.log("No matching category link found for ID:", categoryId);
+						}
+					}
+				} else if (path === '/' || path.toLowerCase().includes('/home')) {
+					// Home page is active
+					$('.main-nav li:first-child').addClass('active');
+					console.log("Set Home as active");
+				} else if (fullUrl.includes('#hot-deal')) {
+					// Hot deals is active
+					$('.main-nav li a[href="#hot-deal"]').parent().addClass('active');
+					console.log("Set Hot Deals as active");
+				}
+			}
+		});
+	</script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

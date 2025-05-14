@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TechXpress.Models;
 using TechXpress_BLL.Dtos;
 
-namespace TechXpress_BLL.Contract
+namespace TechXpress_BLL.Services.Contract
 {
    public interface IproductSevice
     {
@@ -14,6 +14,8 @@ namespace TechXpress_BLL.Contract
         public List<BrandDto> GetAllBrands();
         public List<ProductDto> GetProductsByBrandIds(List<int> brands);
         public List<categoriesDto> GetAllCategories();
-
+        public int AddProduct(ProductDto product);
+        int UpdateProduct(ProductDto existingProduct);
+        int DeleteProduct(int id);
     }
 }
