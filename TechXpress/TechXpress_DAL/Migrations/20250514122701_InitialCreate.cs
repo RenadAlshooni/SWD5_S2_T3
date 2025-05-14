@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechXpress_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class db : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,8 @@ namespace TechXpress_DAL.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     UserTypeID = table.Column<int>(type: "int", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: true),
+                    WishlistID = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -214,14 +216,14 @@ namespace TechXpress_DAL.Migrations
                     ShippingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShippingFee = table.Column<float>(type: "real", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    OrderID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Orders_AspNetUsers_OrderID",
+                        column: x => x.OrderID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -332,18 +334,18 @@ namespace TechXpress_DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WishlistID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wishlists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Wishlists_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Wishlists_AspNetUsers_WishlistID",
+                        column: x => x.WishlistID,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Wishlists_Products_ProductId",
                         column: x => x.ProductId,
@@ -402,9 +404,9 @@ namespace TechXpress_DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_UserId1",
+                name: "IX_Orders_OrderID",
                 table: "Orders",
-                column: "UserId1");
+                column: "OrderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductColors_ColorId",
@@ -432,9 +434,9 @@ namespace TechXpress_DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wishlists_UserId",
+                name: "IX_Wishlists_WishlistID",
                 table: "Wishlists",
-                column: "UserId");
+                column: "WishlistID");
         }
 
         /// <inheritdoc />

@@ -24,6 +24,9 @@
 	<link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/header-links.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 	@* Main Css File *@
 	<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
@@ -41,8 +44,8 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+					<li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+					<li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
 					<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 				</ul>
 				<ul class="header-links pull-right">
@@ -52,10 +55,10 @@
 					{
 						<div class="dropdown">
 							<button class="cta-btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bi bi-person-circle me-1"></i> @User.Identity.Name
+								<i class="fa fa-user-o"></i> @User.Identity.Name
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="userDropdown">
-								<li><a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="fa fa-user-o"></i> My Account</a>
+								<li><a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="fa fa-user"></i> My Account</a>
 								</li>
 								<li><hr class="dropdown-divider"></li>
 								<li>
@@ -71,7 +74,7 @@
 					else
 					{
 						<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-user-o"></i> Login</a></li>
-					})
+					}
 					
 					@if (User.IsInRole("Admin"))
 					{
@@ -272,11 +275,13 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
 							<h3 class="footer-title">About Us</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+							<p>
+								TechXpress is an innovative online platform designed to facilitate the buying and selling of electronic products — including smartphones, laptops, accessories, and other tech gadgets.<br />
+							</p>
 							<ul class="footer-links">
 								<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-								<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-								<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+								<li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+								<li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
 							</ul>
 						</div>
 					</div>
@@ -298,24 +303,11 @@
 
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
-							<h3 class="footer-title">Information</h3>
-							<ul class="footer-links">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Orders and Returns</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-md-3 col-xs-6">
-						<div class="footer">
 							<h3 class="footer-title">Service</h3>
 							<ul class="footer-links">
-								<li><a href="#">My Account</a></li>
-								<li><a href="#">View Cart</a></li>
-								<li><a href="#">Wishlist</a></li>
+								<li><a asp-controller="Profile" asp-action="Index">My Account</a></li>
+								<li><a asp-controller="Cart" asp-action="Index">View Cart</a></li>
+								<li><a asp-controller="Wishlist" asp-action="Index">Wishlist</a></li>
 								<li><a href="#">Track My Order</a></li>
 								<li><a href="#">Help</a></li>
 							</ul>

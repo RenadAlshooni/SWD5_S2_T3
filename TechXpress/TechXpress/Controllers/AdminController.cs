@@ -16,7 +16,7 @@ namespace TechXpress.Controllers
         {
             _productService = productService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int PageNumber = 0)
         {
             var products = _productService.GetAllProducts().Select(p => new ProductsVm
             {

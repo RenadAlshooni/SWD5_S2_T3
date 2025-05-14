@@ -12,8 +12,8 @@ using TechXpress.Context;
 namespace TechXpress_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250512201141_EditedUsers")]
-    partial class EditedUsers
+    [Migration("20250514122701_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

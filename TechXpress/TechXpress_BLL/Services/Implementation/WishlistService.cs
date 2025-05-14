@@ -7,6 +7,7 @@ using TechXpress_BLL.Contract;
 using TechXpress_DAL.Contract;
 using TechXpress_DAL.Implementation;
 using TechXpress_DAL.Models;
+using TechXpress_DAL.Repositories.Contract;
 using TechXpress_PL.ViewModels;
 
 namespace TechXpress_BLL.Implementation

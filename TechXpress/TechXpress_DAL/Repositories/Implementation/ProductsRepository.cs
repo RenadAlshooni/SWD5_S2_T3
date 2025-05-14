@@ -21,8 +21,7 @@ namespace TechXpress_DAL.Repositories.Implementation
         {
             _context.Products.Add(product);
             return _context.SaveChanges();
-
-<<<<<<< HEAD:TechXpress/TechXpress_DAL/Implementation/ProductsRepository.cs
+        }
         public async Task<Product> GetByIdAsync(int id)
         {
             return await _context.Products
@@ -31,9 +30,6 @@ namespace TechXpress_DAL.Repositories.Implementation
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-=======
-        }
->>>>>>> 0cbe2171ac8f25ac83380e1fc7d6a195a19c5146:TechXpress/TechXpress_DAL/Repositories/Implementation/ProductsRepository.cs
         public List<Product> GetAllProducts()
         {
             return _context.Products
