@@ -37,7 +37,7 @@ namespace TechXpress.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var result = await _wishlistService.RemoveFromWishlistAsync(userId, id);
 
-            return View(result);
+            return RedirectToAction("Index");
         }
 
         
