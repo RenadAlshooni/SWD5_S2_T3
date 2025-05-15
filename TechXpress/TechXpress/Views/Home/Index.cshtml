@@ -127,7 +127,10 @@
 												</div>
 											</div>
 											<div class="add-to-cart">
+												<a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id"
+												   asp-route-price="@product.Price" asp-route-imageUrl="@product.Image" asp-route-ProductName="@product.Name">
 												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													</a>
 											</div>
 										</div>
 									</div>
@@ -150,7 +153,7 @@
 </div>
 <!-- /SECTION -->
 <!-- HOT DEAL SECTION -->
-<div id="hot-deal" class="section">
+<div id="hot-deal" class="section" >
 	<!-- container -->
 	<div class="container">
 		<!-- row -->
@@ -160,25 +163,25 @@
 					<ul class="hot-deal-countdown">
 						<li>
 							<div>
-								<h3>02</h3>
+								<h3 id="days">02</h3>
 								<span>Days</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>10</h3>
+								<h3 id="hours">10</h3>
 								<span>Hours</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>34</h3>
+								<h3 id="minutes">34</h3>
 								<span>Mins</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<h3>60</h3>
+								<h3 id="seconds">60</h3>
 								<span>Secs</span>
 							</div>
 						</li>
@@ -194,6 +197,7 @@
 	<!-- /container -->
 </div>
 <!-- /HOT DEAL SECTION -->
+
 <div class="section">
 	<!-- container -->
 	<div class="container">
@@ -419,3 +423,34 @@
 	<!-- /container -->
 </div>
 <!-- /SECTION -->
+@section Scripts {
+	<script>
+		// Set the date to count down to
+		const targetDate = new Date("2025-05-17T23:59:59").getTime();
+
+		function updateCountdown() {
+			const now = new Date().getTime();
+			const diff = targetDate - now;
+
+			if (diff <= 0) {
+				document.getElementById("countdown").innerHTML = "Countdown Ended!";
+				clearInterval(interval);
+				return;
+			}
+
+			const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+			document.getElementById("days").textContent = String(days).padStart(2, '0');
+			document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+			document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+			document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+		}
+
+		// Update countdown every second
+		const interval = setInterval(updateCountdown, 1000);
+		updateCountdown(); // Run once at start
+	</script>
+}

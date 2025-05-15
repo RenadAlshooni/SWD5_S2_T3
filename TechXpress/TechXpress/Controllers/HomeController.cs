@@ -19,7 +19,7 @@ namespace TechXpress.Controllers
             _ProductService = productSevice;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(ApplicationUser user)
         {
             var allProducts = _ProductService.GetAllProducts();
             var newProducts = allProducts.Where( p => p.State == "New").Select( p => new ProductsVm { 
@@ -56,16 +56,7 @@ namespace TechXpress.Controllers
             };
             return View(homePageVm);
         }
-        public IActionResult Signup()
-        {
-
-            return View();
-        } 
-        public IActionResult Login()
-        {
-
-            return View();
-        }
+       
 
     }
 

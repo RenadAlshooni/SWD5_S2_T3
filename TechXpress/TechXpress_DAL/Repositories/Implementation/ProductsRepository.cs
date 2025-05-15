@@ -21,8 +21,15 @@ namespace TechXpress_DAL.Repositories.Implementation
         {
             _context.Products.Add(product);
             return _context.SaveChanges();
-
         }
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
         public List<Product> GetAllProducts()
         {
             return _context.Products

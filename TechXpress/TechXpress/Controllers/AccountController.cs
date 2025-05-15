@@ -6,6 +6,7 @@ using TechXpress.Context;
 using TechXpress.Models;
 using TechXpress_PL.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace TechXpress_PL.Controllers
 {
@@ -34,46 +35,67 @@ namespace TechXpress_PL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(SignUpVm model)
         {
-
-               if (!ModelState.IsValid)
-               {
-                return View(model);
-               }
-
-
-               var userExists = await userManager.FindByEmailAsync(model.Email);
-               if (userExists != null)
-               {
+            var userExists = await userManager.FindByEmailAsync(model.Email);
+            if (userExists != null)
+            {
                 return BadRequest("User already exists");
-                }
-         
-                var user = new ApplicationUser()
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            int? userTypeId = null;
+            string role = model.UserType.ToString();
+
+            // Start transaction if needed
+            using var transaction = await _db.Database.BeginTransactionAsync();
+            try
+            {
+                // Create ApplicationUser instance first
+                ApplicationUser user = new ApplicationUser
                 {
-                    UserName = model.Email,
+                    UserName = model.Email.Split('@')[0],
                     Email = model.Email,
                     FirstName = model.Name,
+                    UserType = model.UserType,
+                    PhoneNumber = model.PhoneNumber,    
+
                 };
 
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                IdentityResult userCreateResult = await userManager.CreateAsync(user, model.Password);
+                if (!userCreateResult.Succeeded)
                 {
-                    // Add user to the Patient role
-                    if (!await roleManager.RoleExistsAsync("Client"))
+                    foreach (var error in userCreateResult.Errors)
                     {
-                        await roleManager.CreateAsync(new IdentityRole("Client"));
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
-                    await userManager.AddToRoleAsync(user, "Client");
+                    return View(model);
+                }
 
-                    return RedirectToAction("Login", "Account");
-                }
-                foreach (var error in result.Errors)
+              
+                // Add the user to the appropriate role
+                if (!await roleManager.RoleExistsAsync(role))
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    await roleManager.CreateAsync(new IdentityRole(role));
                 }
+
+                await userManager.AddToRoleAsync(user, role);
+
+                // Commit the transaction
+                await transaction.CommitAsync();
+                return RedirectToAction("Login", "Account");
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                ModelState.AddModelError("", "An error occurred while creating your account.");
                 return View(model);
-            
-           
+            }
         }
+
+
 
         [HttpGet]
         public IActionResult Login()
@@ -107,10 +129,12 @@ namespace TechXpress_PL.Controllers
             {
                 return View(model);
             }
-
+            await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
 
+
         }
+
         [HttpGet]
         public IActionResult VerifyEmail()
         {

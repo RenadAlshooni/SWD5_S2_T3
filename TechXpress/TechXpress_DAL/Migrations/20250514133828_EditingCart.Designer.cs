@@ -12,8 +12,8 @@ using TechXpress.Context;
 namespace TechXpress_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250511173813_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250514133828_EditingCart")]
+    partial class EditingCart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,6 +197,9 @@ namespace TechXpress_DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("OrderID")
+                        .HasColumnType("int");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,6 +223,9 @@ namespace TechXpress_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UserTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WishlistID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -252,6 +258,37 @@ namespace TechXpress_DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("TechXpress.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("TechXpress.Models.Category", b =>
@@ -303,6 +340,9 @@ namespace TechXpress_DAL.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("OrderID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
 
@@ -315,15 +355,12 @@ namespace TechXpress_DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Orders");
                 });
@@ -417,6 +454,9 @@ namespace TechXpress_DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -435,6 +475,8 @@ namespace TechXpress_DAL.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Products");
                 });
@@ -460,6 +502,36 @@ namespace TechXpress_DAL.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductColors");
+                });
+
+            modelBuilder.Entity("TechXpress_DAL.Models.Wishlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WishlistID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WishlistID");
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -517,7 +589,7 @@ namespace TechXpress_DAL.Migrations
                 {
                     b.HasOne("TechXpress.Models.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("OrderID");
 
                     b.Navigation("User");
                 });
@@ -555,6 +627,10 @@ namespace TechXpress_DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TechXpress.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ProductId");
+
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
@@ -579,12 +655,36 @@ namespace TechXpress_DAL.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("TechXpress_DAL.Models.Wishlist", b =>
+                {
+                    b.HasOne("TechXpress.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TechXpress.Models.ApplicationUser", "User")
+                        .WithMany("Wishlists")
+                        .HasForeignKey("WishlistID");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TechXpress.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Wishlists");
                 });
 
             modelBuilder.Entity("TechXpress.Models.Brand", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("TechXpress.Models.Cart", b =>
                 {
                     b.Navigation("Products");
                 });

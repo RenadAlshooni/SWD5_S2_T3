@@ -16,7 +16,7 @@ namespace TechXpress.Controllers
         {
             _productService = productService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 0)
         {
             var products = _productService.GetAllProducts().Select(p => new ProductsVm
             {
@@ -30,7 +30,10 @@ namespace TechXpress.Controllers
                 Quantity = p.Quantity,
 
             }).ToList();
-
+            var TotalProducts= products.Count; ;
+            products = products
+                   .Skip(page * 10)
+                   .Take(10).ToList();
 
             ViewBag.Categories = _productService.GetAllCategories().Select(c => new CategoryVm
             {
@@ -43,8 +46,10 @@ namespace TechXpress.Controllers
                 Id = b.Id,
                 Name = b.Name,
                 Description = b.Description,
-            }).ToList(); 
+            }).ToList();
 
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = (int)Math.Ceiling(TotalProducts / (double)10);
             return View(products);
         }
 

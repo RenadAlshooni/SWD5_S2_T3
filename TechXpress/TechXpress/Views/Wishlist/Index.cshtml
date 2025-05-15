@@ -1,4 +1,8 @@
-﻿
+﻿@using TechXpress_DAL.Models
+@using TechXpress_PL.ViewModels
+
+@model List<Wishlist>
+
 <!-- SECTION -->
 <div class="section">
 	<!-- container -->
@@ -8,91 +12,52 @@
 			<!-- Wishlist Products -->
 			<div class="col-md-12">
 				<div class="wishlist-header">
-					<h3 class="title">My Wishlist (2 items)</h3>
+					<h3 class="title">My Wishlist (@Model.Count)</h3>
 				</div>
 
 				<div class="wishlist-items">
 					<!-- product -->
-					<div class="product-widget wishlist-item">
-						<div class="row">
-							<div class="col-md-3 col-xs-12">
-								<div class="product-img">
-									<img src="./img/product01.png" alt="">
-								</div>
-							</div>
-							<div class="col-md-5 col-xs-12">
-								<div class="product-body">
-									<p class="product-category">Laptops</p>
-									<h3 class="product-name"><a href="#">MacBook Pro 13-inch with Touch Bar</a></h3>
-									<h4 class="product-price">$1,299.00</h4>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
-									<p class="product-description">
-										Apple M1 chip with 8‑core CPU, 8‑core GPU, and 16‑core Neural Engine, 8GB unified memory, 256GB SSD storage
-									</p>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-12">
-								<div class="wishlist-actions">
-									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									<button class="delete-wishlist-btn"><i class="fa fa-trash"></i> Remove</button>
-								</div>
+					@if (!Model.Any())
+					{
+						<div class="col-12 text-center py-5" id="empty-wishlist">
+							<div class="empty-state">
+								<i class="fa fa-heart-o fa-4x text-muted mb-3"></i>
+								<h3 class="section-title">Your wishlist is empty</h3>
+								<p class="text-muted mb-4">Browse our products and add items to your wishlist</p>
+								<a asp-controller="Categories" asp-action="Index" class="primary-btn">Browse Products</a>
 							</div>
 						</div>
-					</div>
-					<!-- /product -->
+					}
+					else
+					{
 
+						<div class="product-widget wishlist-item">
+							<div class="row">
+								@foreach (var item in Model){
+									<div class="col-md-4 mb-4 wishlist-item" data-item-id="@item.Id">
+										<div class="card h-100">
+											@if (!string.IsNullOrEmpty(item.Product.Image))
+											{
+												<img src="@item.Product.Image" class="card-img-top" alt="@item.Product.Name">
+											}
+											<div class="card-body">
+												<h5 class="card-title">@item.Product.Name</h5>
+												<p class="card-text">@item.Product.Price.ToString("C")</p>
+												<div class="d-flex justify-content-between">
+													<a href="/Products/Details/@item.ProductId" class="btn btn-primary">View Details</a>
+													<button class="btn btn-danger remove-from-wishlist" data-id="@item.Id">
+														<i class="fa fa-trash"></i> Remove
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+						<!-- /product -->
+					}
 					<div class="wishlist-divider"></div>
-
-					<!-- product -->
-					<div class="product-widget wishlist-item">
-						<div class="row">
-							<div class="col-md-3 col-xs-12">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-							</div>
-							<div class="col-md-5 col-xs-12">
-								<div class="product-body">
-									<p class="product-category">Cameras</p>
-									<h3 class="product-name"><a href="#">Canon EOS Rebel T7 DSLR Camera</a></h3>
-									<h4 class="product-price">$499.00 <del class="product-old-price">$599.00</del></h4>
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<p class="product-description">
-										24.1 Megapixel CMOS sensor, DIGIC 4+ Image Processor, Full HD videos, Built-in Wi-Fi and NFC technology
-									</p>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-12">
-								<div class="wishlist-actions">
-									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-									<button class="delete-wishlist-btn"><i class="fa fa-trash"></i> Remove</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-				</div>
-
-				<div class="wishlist-empty" style="display: none;">
-					<div class="empty-wishlist-container">
-						<i class="fa fa-heart-o empty-wishlist-icon"></i>
-						<h3>Your wishlist is empty</h3>
-						<p>Add items that you like to your wishlist</p>
-						<a href="#" class="primary-btn">Continue Shopping</a>
-					</div>
-				</div>
 
 				<div class="wishlist-footer">
 					<div class="row">
@@ -111,186 +76,17 @@
 	</div>
 	<!-- /container -->
 </div>
-<!-- /SECTION -->
-<!-- SECTION -->
-<div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<!-- section title -->
-			<div class="col-md-12">
-				<div class="section-title">
-					<h3 class="title">Recommended For You</h3>
-					<div class="section-nav">
-						<ul class="section-tab-nav tab-nav">
-							<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-							<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-							<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-							<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- /section title -->
-			<!-- Products tab & slick -->
-			<div class="col-md-12">
-				<div class="row">
-					<div class="products-tabs">
-						<!-- tab -->
-						<div id="tab1" class="tab-pane active">
-							<div class="products-slick" data-nav="#slick-nav-1">
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product02.png" alt="">
-										<div class="product-label">
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product03.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product04.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-								<!-- product -->
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product05.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-								<!-- /product -->
-							</div>
-							<div id="slick-nav-1" class="products-slick-nav"></div>
-						</div>
-						<!-- /tab -->
-					</div>
-				</div>
-			</div>
-			<!-- Products tab & slick -->
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
 </div>
-<!-- /SECTION -->
+@* <script> *@
+@*    function ConfirmRemoving(a){ *@
+@*       const userConfirmed = confirm("Are you sure you want to remove this item from your wishlist?"); *@
+@*        if (userConfirmed) { *@
+@* 		   window.location.herf = URL; *@
+@* 	   } *@
+@*    } *@
+
+@* </script> *@
+
+@section Scripts {
+	<script src="~/js/wishlist.js"></script>
+}

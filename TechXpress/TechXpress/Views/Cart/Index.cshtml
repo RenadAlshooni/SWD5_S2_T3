@@ -1,4 +1,6 @@
-﻿<!-- SECTION -->
+﻿@model IEnumerable<Cart>
+
+<!-- SECTION -->
 <div class="section">
 	<!-- container -->
 	<div class="container">
@@ -9,6 +11,18 @@
 				<div class="cart-page">
 					<div class="cart-table">
 						<table class="table">
+							@if (!Model.Any())
+							{
+									<div class="empty-cart-content">
+										<i class="fa fa-shopping-cart fa-4x"></i>
+										<h3 class="empty-cart-title">Your cart is empty</h3>
+										<p class="empty-cart-message">Browse our products and add items to your cart</p>
+										<a asp-controller="Home" asp-action="Index" class="primary-btn">Browse Products</a>
+									</div>
+								
+							}
+							else
+							{
 							<thead>
 								<tr>
 									<th>Product</th>
@@ -19,76 +33,38 @@
 								</tr>
 							</thead>
 							<tbody>
+								
+								@foreach(var item in Model){
 								<tr>
 									<td class="cart-product">
 										<div class="product-img">
 											<img src="./img/product01.png" alt="">
 										</div>
 										<div class="product-body">
-											<h3 class="product-name">Laptop Ultra HD 4K</h3>
+											<h3 class="product-name">@item.ProductName</h3>
 											<h4 class="product-category">Laptops</h4>
 										</div>
 									</td>
-									<td class="cart-price">$980.00</td>
+									<td class="cart-price">@item.Price.ToString("C")</td>
 									<td class="cart-quantity">
 										<div class="qty-input">
 											<button class="qty-down">-</button>
-											<input type="number" value="1" min="1">
+											<input type="number" name="@item.Quantity" value="1" min="1">
 											<button class="qty-up">+</button>
 										</div>
 									</td>
-									<td class="cart-total">$980.00</td>
+									<td class="cart-total">@(item.Price * (item.Quantity))</td>
 									<td class="cart-delete">
-										<button><i class="fa fa-close"></i></button>
+											<button asp-action="RemoveFromCart">
+											
+											   <i class="fa fa-close"></i>
+									       </button>
 									</td>
 								</tr>
-								<tr>
-									<td class="cart-product">
-										<div class="product-img">
-											<img src="./img/product02.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">Wireless Headphones</h3>
-											<h4 class="product-category">Accessories</h4>
-										</div>
-									</td>
-									<td class="cart-price">$290.00</td>
-									<td class="cart-quantity">
-										<div class="qty-input">
-											<button class="qty-down">-</button>
-											<input type="number" value="2" min="1">
-											<button class="qty-up">+</button>
-										</div>
-									</td>
-									<td class="cart-total">$580.00</td>
-									<td class="cart-delete">
-										<button><i class="fa fa-close"></i></button>
-									</td>
-								</tr>
-								<tr>
-									<td class="cart-product">
-										<div class="product-img">
-											<img src="./img/product03.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">Smartphone Pro Max</h3>
-											<h4 class="product-category">Smartphones</h4>
-										</div>
-									</td>
-									<td class="cart-price">$460.00</td>
-									<td class="cart-quantity">
-										<div class="qty-input">
-											<button class="qty-down">-</button>
-											<input type="number" value="3" min="1">
-											<button class="qty-up">+</button>
-										</div>
-									</td>
-									<td class="cart-total">$1,380.00</td>
-									<td class="cart-delete">
-										<button><i class="fa fa-close"></i></button>
-									</td>
-								</tr>
+								}
+								
 							</tbody>
+							}
 						</table>
 					</div>
 

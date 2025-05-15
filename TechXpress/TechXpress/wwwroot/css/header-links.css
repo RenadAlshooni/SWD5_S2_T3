@@ -1,0 +1,196 @@
+﻿
+.header-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+    .header-links li {
+        display: inline-block;
+        margin-right: 20px; 
+        font-size: 12px;
+    }
+
+        .header-links li:last-child {
+            margin-right: 0px;
+        }
+
+        .header-links li a {
+            color: #FFF;
+            transition: 0.2s all;
+        }
+
+            .header-links li a:hover {
+                color: #D10024;
+            }
+
+        .header-links li i {
+            color: #D10024;
+            margin-right: 8px; 
+        }
+
+/* Dropdown Styling */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px; /* Match spacing with other items */
+}
+
+.cta-btn.dropdown-toggle {
+    background-color: #1E1F29; /* Distinct background for username button */
+    color: #FFF;
+    border: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 6px 12px; /* Added padding for better visibility */
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    transition: 0.2s all;
+}
+
+    .cta-btn.dropdown-toggle:hover {
+        color: #D10024;
+        background-color: #1E1F29;
+    }
+
+    .cta-btn.dropdown-toggle i {
+        margin-right: 8px;
+        color: #D10024;
+    }
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    min-width: 180px;
+    padding: 10px 0;
+    margin: 5px 0 0;
+    background-color: #1E1F29; /* Match template dark background */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+    .dropdown-menu.show {
+        display: block;
+    }
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 15px;
+    clear: both;
+    font-size: 12px;
+    color: #FFF; /* Match template text color */
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    text-decoration: none;
+    transition: 0.2s all;
+}
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        color: #D10024;
+        background-color: #15161D; /* Darker background on hover */
+    }
+
+    .dropdown-item i {
+        margin-right: 8px;
+        color: #D10024;
+    }
+
+.dropdown-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #15161D; /* Darker divider */
+}
+
+/* Logout button styling */
+#logoutForm {
+    width: 100%;
+}
+
+    #logoutForm button.dropdown-item {
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+        background: none;
+        border: none;
+        font-size: 12px;
+        padding: 8px 15px;
+        color: #FFF;
+    }
+
+        #logoutForm button.dropdown-item:hover {
+            color: #D10024;
+            background-color: #15161D;
+        }
+
+/* Admin dashboard link */
+.header-links a[asp-controller="Admin"] {
+    display: flex;
+    align-items: center;
+    background-color: #2B2D42; /* Match username button */
+    padding: 6px 12px;
+    border-radius: 3px;
+    transition: 0.2s all;
+}
+
+    .header-links a[asp-controller="Admin"]:hover {
+        background-color: #1E1F29;
+        color: #D10024;
+    }
+
+    .header-links a[asp-controller="Admin"] i {
+        color: #D10024;
+    }
+
+/* Login link styling */
+.header-links a[asp-controller="Account"] {
+    display: flex;
+    align-items: center;
+    background-color: #2B2D42; /* Match username button */
+    padding: 6px 12px;
+    border-radius: 3px;
+    transition: 0.2s all;
+}
+
+    .header-links a[asp-controller="Account"]:hover {
+        background-color: #1E1F29;
+        color: #D10024;
+    }
+
+/* Responsive adjustments */
+@media only screen and (max-width: 767px) {
+    .header-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .header-links li {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+    .dropdown {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .dropdown-menu {
+        position: static;
+        float: none;
+        width: 100%;
+        margin-top: 5px;
+        box-shadow: none;
+    }
+}

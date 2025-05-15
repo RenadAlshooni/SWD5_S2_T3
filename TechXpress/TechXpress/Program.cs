@@ -10,6 +10,10 @@ using TechXpress_BLL.Services.Implementation;
 using TechXpress_DAL.Repositories.Contract;
 using TechXpress_DAL.Repositories.Implementation;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using TechXpress_DAL.Contract;
+using TechXpress_DAL.Implementation;
+using TechXpress_BLL.Contract;
+using TechXpress_BLL.Implementation;
 
 namespace TechXpress
 {
@@ -22,8 +26,11 @@ namespace TechXpress
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Data Source = ALMOKABER\\SQLEXPRESS;Initial Catalog = TechXpress2;Integrated Security = True; Encrypt = True; Trust Server Certificate = True"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+            builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
+
             builder.Services.AddScoped<IproductSevice, ProductServices>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -42,6 +49,7 @@ namespace TechXpress
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
             builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -52,10 +60,12 @@ namespace TechXpress
             }
             app.UseStaticFiles();
 
+            app.UseSession();
+            app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -1,4 +1,5 @@
 ﻿@using TechXpress_PL.ViewModels
+@using Microsoft.AspNetCore.Identity
 @{
     Layout = "_Layout";
 }
@@ -13,10 +14,6 @@
         };
 
     ViewBag.Categories = categories;
-    
-    int ActiveNavItem = 2;
-
-    ViewBag.ActiveNavItem = ActiveNavItem;
 
     }
 

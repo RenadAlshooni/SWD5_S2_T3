@@ -71,16 +71,29 @@
 
 						<div class="pagination-container">
 							<ul class="pagination">
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+								@{
+									int currentPage = ViewData["CurrentPage"] != null ? (int)ViewData["CurrentPage"] : 1;
+									int totalPages = ViewData["TotalPages"] != null ? (int)ViewData["TotalPages"] : 1;
+								}
+
+								@for (int i = 0; i < totalPages; i++)
+								{
+									<li class="@(i == currentPage ? "active" : "")">
+										<a asp-controller="Admin" asp-action="Index" asp-route-page="@i">@(i + 1)</a>
+									</li>
+								}
+
+								@if (currentPage < totalPages)
+								{
+									<li>
+										<a asp-controller="Admin" asp-action="Index" asp-route-page="@(currentPage + 1)">
+											<i class="fa fa-angle-right"></i>
+										</a>
+									</li>
+								}
 							</ul>
 						</div>
-					</div>
-				</div>
+
 			</div>
 		</div>
 		<!-- /row -->
@@ -236,6 +249,9 @@
 		</div>
 	</div>
 </div>
+
+
+
 @section Scripts {
 	<script>
 		$(document).ready(function() {
