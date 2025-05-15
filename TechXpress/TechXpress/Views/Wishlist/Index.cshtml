@@ -2,6 +2,7 @@
 @using TechXpress_PL.ViewModels
 
 @model List<Wishlist>
+<link rel="stylesheet" href="~/css/admin-dashboard.css" />
 
 <!-- SECTION -->
 <div class="section">
@@ -38,7 +39,7 @@
 										<div class="card h-100">
 											@if (!string.IsNullOrEmpty(item.Product.Image))
 											{
-												<img src="@item.Product.Image" class="card-img-top" alt="@item.Product.Name">
+												<img src="~/img/@item.Product.Image" class="card-img-top" alt="@item.Product.Name">
 											}
 											<div class="card-body">
 												<h5 class="card-title">@item.Product.Name</h5>

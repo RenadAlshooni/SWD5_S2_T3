@@ -38,7 +38,7 @@
 								<tr>
 									<td class="cart-product">
 										<div class="product-img">
-											<img src="./img/product01.png" alt="">
+											<img src="./img/@item.Image" alt="">
 										</div>
 										<div class="product-body">
 											<h3 class="product-name">@item.ProductName</h3>
@@ -48,17 +48,23 @@
 									<td class="cart-price">@item.Price.ToString("C")</td>
 									<td class="cart-quantity">
 										<div class="qty-input">
+													<a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.ProductId" asp-route-quantity="@((item.Quantity) -1)">
+
 											<button class="qty-down">-</button>
-											<input type="number" name="@item.Quantity" value="1" min="1">
-											<button class="qty-up">+</button>
-										</div>
+										</a>
+											<input type="number" class="qty-input-field" data-id="@item.Id" value="@item.Quantity" min="1">
+													<a asp-controller="Cart" asp-action="Update" asp-route-productId="@item.ProductId" asp-route-quantity="@((item.Quantity) + 1)">
+														<button class="qty-up">+</button>
+												</a>
+													</div>
 									</td>
+									
 									<td class="cart-total">@(item.Price * (item.Quantity))</td>
 									<td class="cart-delete">
-											<button asp-action="RemoveFromCart">
+												<a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">
 											
 											   <i class="fa fa-close"></i>
-									       </button>
+									       </a>
 									</td>
 								</tr>
 								}
@@ -83,7 +89,7 @@
 								<h3>Cart Totals</h3>
 								<div class="summary-item">
 									<span>Subtotal</span>
-									<span>$2,940.00</span>
+									<span>$@ViewBag.totalPrice</span>
 								</div>
 								<div class="summary-item">
 									<span>Shipping</span>
@@ -91,11 +97,11 @@
 								</div>
 								<div class="summary-item">
 									<span>Tax</span>
-									<span>$294.00</span>
+									<span>Free</span>
 								</div>
 								<div class="summary-item total">
 									<span>Total</span>
-									<span>$3,234.00</span>
+									<span>$@ViewBag.totalPrice</span>
 								</div>
 								<div class="checkout-btn">
 									<a asp-controller="Checkout" asp-action="Index">

@@ -9,6 +9,7 @@ namespace TechXpress.Models
         public string? UserId { get; set; }
         public int Quantity { get; set; } = 0;
         public string ProductName { get; set; }
+        public string? Image { get; set; }
         public bool IsDeleted { get; set; } = false;
         public List<Product>? Products { get; set; }
         public int ProductId { get; set; }

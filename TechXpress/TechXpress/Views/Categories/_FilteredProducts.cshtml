@@ -18,8 +18,10 @@
 					</div>
 				</div>
 				<div class="product-body">
-					<p class="product-category">@product.Category.Name</p>
-					<h3 class="product-name"><a href="#">@product.Name</a></h3>
+					<a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">
+
+						<h3 class="product-name">@product.Name</h3>
+</a>
 					<h4 class="product-price">
 						$@product.Price
 						@if (product.OldPrice > product.Price)
@@ -41,15 +43,20 @@
 						}
 					</div>
 					<div class="product-btns">
-						<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-		
+						<a class="add-to-wishlist" asp-controller="Wishlist" asp-action="AddItem" asp-route-productId="@product.Id">
+							<i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+						</a>
 					</div>
 				</div>
 				<div class="add-to-cart">
-					<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+					<a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id"
+					   asp-route-price="@product.Price" asp-route-imageUrl="@product.Image" asp-route-ProductName="@product.Name">
+						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+					</a>
 				</div>
 			</div>
-		</div>
+			</div>
+	
 	}
 </div>
 <!-- store bottom filter -->

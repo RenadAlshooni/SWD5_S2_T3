@@ -74,44 +74,29 @@
                             <label>
                                 Color
                                 <select class="input-select">
-                                    @foreach (var color in Model.Product.productColors)
-                                    {
-                                        <option value="@color.Id">@color.Color</option>
-                                    }
+                                
+                                        <option value="1">Red</option>
+                                        <option value="1">Blue</option>
+                                        <option value="1">Black</option>
+                                
                                 </select>
                             </label>
                         </div>
-
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn">
-                                <i class="fa fa-shopping-cart"></i> add to cart
-                            </button>
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.Product.Id">
+                           
+                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                           </a>
                         </div>
 
                         <ul class="product-btns">
                             <li>
-                                <a asp-controller="Wishlist" asp-action="Index">
-                                    <i class="fa fa-heart-o"></i> add to wishlist
+                                <a class="add-to-wishlist" asp-controller="Wishlist" asp-action="AddItem" asp-route-productId="@Model.Product.Id">
+                                <button class="add-to-cart-btn"><i class="fa fa-heart-o"></i> add to Wishlist</button>
+
                                 </a>
                             </li>
                         </ul>
 
-                        <ul class="product-links">
-                            <li>Category:</li>
-                            <li>
-                                <a asp-action="Details" asp-controller="Category" asp-route-id="@Model.Product.CategoryId">
-                                    @Model.Product.CategoryName
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul class="product-links">
-                            <li>Share:</li>
-                            <li><a href="https://facebook.com"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="https://twitter.com"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                        </ul>
                     </div>
                 </div>
                 <!-- /Product details -->

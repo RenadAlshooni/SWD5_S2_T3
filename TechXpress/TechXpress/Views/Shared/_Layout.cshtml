@@ -77,7 +77,7 @@
 					{
 						<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-user-o"></i> Login</a></li>
 					}
-					
+
 					@if (User.IsInRole("Admin"))
 					{
 						<li><a asp-controller="Admin" asp-action="Index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -129,7 +129,10 @@
 								<a asp-controller="Wishlist" asp-action="Index">
 									<i class="fa fa-heart-o"></i>
 									<span>Wishlist</span>
-									<div class="qty">2</div>
+									@if(ViewBag.Wishlists !=0)
+									{
+										<div class="qty">@ViewBag.Wishlists</div>
+									}
 								</a>
 							</div>
 							<!-- /Wishlist -->
@@ -138,11 +141,14 @@
 								<a class="dropdown-toggle" asp-controller="Cart" asp-action="Index" data-toggle="dropdown" aria-expanded="true">
 									<i class="fa fa-shopping-cart"></i>
 									<span>Cart</span>
-									<div class="qty">3</div>
+									@if (ViewBag.Carts != 0)
+									{
+									<div class="qty">@ViewBag.Carts</div>
+									}
 								</a>
 								<div class="cart-dropdown">
-									<div class="cart-list">
-										<div class="product-widget">
+@* 									<div class="cart-list">
+ *@										@* <div class="product-widget">
 											<div class="product-img">
 												<img src="./img/product01.png" alt="">
 											</div>
@@ -162,8 +168,8 @@
 												<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
 											</div>
 											<button class="delete"><i class="fa fa-close"></i></button>
-										</div>
-									</div>
+										</div> *@
+									</@* div *@>
 									<div class="cart-summary">
 										<small>3 Item(s) selected</small>
 										<h5>SUBTOTAL: $2940.00</h5>

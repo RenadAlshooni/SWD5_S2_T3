@@ -83,7 +83,7 @@
 									</li>
 								}
 
-								@if (currentPage < totalPages)
+								@if (currentPage < totalPages - 1)
 								{
 									<li>
 										<a asp-controller="Admin" asp-action="Index" asp-route-page="@(currentPage + 1)">

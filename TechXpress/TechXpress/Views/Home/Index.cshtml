@@ -122,8 +122,9 @@
 													}
 												</div>
 												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-
+													<a class="add-to-wishlist" asp-controller="Wishlist" asp-action="AddItem" asp-route-productId="@product.Id">
+													<i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+													</a>
 												</div>
 											</div>
 											<div class="add-to-cart">

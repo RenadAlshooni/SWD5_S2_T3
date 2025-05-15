@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TechXpress.Context;
 using TechXpress.Models;
@@ -42,13 +43,24 @@ namespace TechXpress.Controllers
             var cart = _context.Carts.ToList();
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var userCart = cart.Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
+            var totalPrice = userCart.Sum(c => c.Price * c.Quantity);
+            ViewBag.TotalPrice = totalPrice;
             return View(userCart);
         }
-
-        public IActionResult AddToCart(int productId ,string ProductName, decimal price, string imageUrl , int quantity = 1)
+        public IActionResult Update(int productId,int Quantity)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var cart = _context.Carts.Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
+            var cartItem = _context.Carts.Where(c => c.ProductId == productId && userId == c.UserId).First();
+            cartItem.Quantity = Quantity;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult AddToCart(int productId ,int quantity = 1)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var cart = _context.Carts.Include(c => c.Products).Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
+                var product = _context.Products.FirstOrDefault(p => p.Id == productId);
             var existingCartItem = cart.FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
             if (existingCartItem != null)
             {
@@ -58,12 +70,13 @@ namespace TechXpress.Controllers
             {
                 _context.Add(new Cart {
                     ProductId = productId,
-                    ProductName = ProductName,
+                    ProductName = product.Name,
                     UserId = userId,
                     Quantity = quantity,
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow,
-                    Price = price
+                    Price = product.Price,
+                    Image = product.Image
                 });
             }
             _context.SaveChanges();
@@ -73,12 +86,12 @@ namespace TechXpress.Controllers
         public IActionResult RemoveFromCart(int productId)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var cart = GetCart();
-            var cartItem = cart.FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
+
+            var cartItem = _context.Carts.Include(c => c.Products ).Where(c => c.ProductId == productId && userId == c.UserId).First();
             if (cartItem != null)
             {
-                cartItem.IsDeleted = true;
-                SaveCart(cart);
+                _context.Remove(cartItem);
+                _context.SaveChanges();
             }
             return RedirectToAction("Index");
         }
