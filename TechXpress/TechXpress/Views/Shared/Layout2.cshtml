@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="~/css/slick.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/header-links.css" asp-append-version="true" />
 	@* Main Css File *@
 	<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 
@@ -31,22 +32,56 @@
 
 </head>
 <body>
-  <header>
-	<!-- TOP HEADER -->
-	<div id="top-header">
-		<div class="container">
-				<ul class="header-links pull-left ">
-					<li><a href="#" class="text-decoration-none"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-					<li><a href="#" class="text-decoration-none"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-					<li><a href="#" class="text-decoration-none"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-			</ul>
-			<ul class="header-links pull-right">
-					<li><a asp-controller="Account" asp-action="Login" class="text-decoration-none"><i class="fa fa-user-o"></i>Login</a></li>
-					<li><a asp-controller="Account" asp-action="SignUp" class="text-decoration-none"><i class="fa fa-user-o"></i>Sign Up</a></li>
-			</ul>
+	<header>
+		<!-- TOP HEADER -->
+		<div id="top-header">
+			<div class="container">
+				<ul class="header-links pull-left">
+					<li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+					<li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+					<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+				</ul>
+				<ul class="header-links pull-right">
+					
+
+					@if (User.Identity.IsAuthenticated)
+					{
+						<div class="dropdown">
+							<button class="cta-btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fa fa-user-o"></i> @User.Identity.Name
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="userDropdown">
+								<li>
+									<a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="fa fa-user"></i> My Account</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									@using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "form-inline", id = "logoutForm" }))
+									{
+										@Html.AntiForgeryToken()
+										<button type="submit" class="dropdown-item">
+											<i class="fa fa-sign-out"></i> Logout
+										</button>
+									}
+								</li>
+							</ul>
+						</div>
+					}
+					else
+					{
+						<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-user-o"></i> Login</a></li>
+					}
+
+					@if (User.IsInRole("Admin"))
+					{
+						<li><a asp-controller="Admin" asp-action="Index"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+					}
+				</ul>
+
+
+			</div>
 		</div>
-	</div>
-	<!-- /TOP HEADER -->
+		<!-- /TOP HEADER -->
 		<!-- MAIN HEADER -->
 		<div id="header">
 			<!-- container -->

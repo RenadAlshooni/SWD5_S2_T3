@@ -12,8 +12,8 @@ using TechXpress.Context;
 namespace TechXpress_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250515121151_InitialDb")]
-    partial class InitialDb
+    [Migration("20250515123153_In2")]
+    partial class In2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

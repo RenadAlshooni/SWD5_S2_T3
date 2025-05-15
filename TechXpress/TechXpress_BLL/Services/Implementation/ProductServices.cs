@@ -130,6 +130,7 @@ namespace TechXpress_BLL.Services.Implementation
                 Details = product.Details,
                 SalesPercentage = product.SalesPercentage,
                 IsNew = product.IsNew,
+                productColors = product.productColors,
             };
            
         }

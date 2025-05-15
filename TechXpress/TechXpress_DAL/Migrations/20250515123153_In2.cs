@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechXpress_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDb : Migration
+    public partial class In2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

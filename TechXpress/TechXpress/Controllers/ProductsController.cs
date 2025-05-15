@@ -14,7 +14,7 @@ namespace TechXpress.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index(int id, ProductDto productRatings)
+        public IActionResult Index(int id)
         {
             
             var product = _productService.GetProductById(id);
@@ -22,7 +22,18 @@ namespace TechXpress.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            var relatedProducts = _productService.GetAllProducts()
+                .Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id)
+                .Take(4)
+                .ToList();
+            var productDetailsVm = new ProductDetailsVm()
+            {
+                Product = product,
+                RelatedProducts = _productService.GetAllProducts()
+            };
+
+
+            return View(productDetailsVm);
         }
     }
 }

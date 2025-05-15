@@ -98,7 +98,7 @@
 											</div>
 											<div class="product-body">
 												<p class="product-category">@product.Category.Name</p>
-												<a asp-controller="Products" asp-action="Index">
+												<a asp-controller="Products" asp-action="Index" asp-route-id="@product.Id">
 													<h3 class="product-name">@product.Name</h3>
 												</a>
 												<h4 class="product-price">

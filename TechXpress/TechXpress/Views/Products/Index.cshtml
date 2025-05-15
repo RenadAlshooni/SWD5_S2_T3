@@ -1,9 +1,7 @@
 ﻿@model ProductDetailsVm
 @using System.Linq;
 
-@{
-    ViewData["Title"] = "Products";
-}
+
 
 <body>
 
@@ -16,12 +14,11 @@
                 <div class="col-md-5 col-md-push-2">
                     
                     <div id="product-main-img">
-                        @foreach (var imgUrl in Model.Product.Image)
-                        {
+                      
                             <div class="product-preview">
-                                <img src="@imgUrl" alt="@Model.Product.Name" />
+                                <img src="~/img/@Model.Product.Image" alt="@Model.Product.Name" />
                             </div>
-                        }
+                        
                     </div>
                 </div>
 
@@ -29,7 +26,7 @@
                 <div class="col-md-2 col-md-pull-5">
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="@Model.Product.Image" alt="@Model.Product.Name" />
+                            <img src="~/img/@Model.Product.Image" alt="@Model.Product.Name" />
                         </div>
                     </div>
                 </div>
@@ -79,7 +76,7 @@
                                 <select class="input-select">
                                     @foreach (var color in Model.Product.productColors)
                                     {
-                                        <option value="@color">@color</option>
+                                        <option value="@color.Id">@color.Color</option>
                                     }
                                 </select>
                             </label>
@@ -124,7 +121,6 @@
                         <!-- nav -->
                         <ul class="tab-nav">
                             <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Details</a></li>
                             <li><a data-toggle="tab" href="#tab3">Reviews (@Model.Product.Reviews.Count())</a></li>
                         </ul>
 
@@ -134,14 +130,6 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <p>@Model.Product.Description</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="tab2" class="tab-pane fade in">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>@Model.Product.Details</p>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +270,7 @@
                     <div class="col-md-3 col-xs-6">
                         <div class="product">
                             <div class="product-img">
-                                <img src="@item.Image" alt="@item.Name" />
+                                <img src="~/img/@item.Image" alt="@item.Name" />
                                 @* لو عندك SalePercentage: *@
                                 @if (item.SalesPercentage > 0)
                                 {
