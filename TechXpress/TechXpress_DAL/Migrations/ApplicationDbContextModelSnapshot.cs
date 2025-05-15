@@ -427,6 +427,10 @@ namespace TechXpress_DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
@@ -436,6 +440,9 @@ namespace TechXpress_DAL.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("InStock")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -447,6 +454,9 @@ namespace TechXpress_DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsLiked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNew")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -462,6 +472,13 @@ namespace TechXpress_DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reviews")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SalesPercentage")
                         .HasColumnType("int");
 
                     b.Property<int>("Sold")
@@ -503,6 +520,41 @@ namespace TechXpress_DAL.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductColors");
+                });
+
+            modelBuilder.Entity("TechXpress_DAL.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("TechXpress_DAL.Models.Wishlist", b =>
@@ -654,6 +706,23 @@ namespace TechXpress_DAL.Migrations
                     b.Navigation("Color");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TechXpress_DAL.Models.Review", b =>
+                {
+                    b.HasOne("TechXpress.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TechXpress.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TechXpress_DAL.Models.Wishlist", b =>

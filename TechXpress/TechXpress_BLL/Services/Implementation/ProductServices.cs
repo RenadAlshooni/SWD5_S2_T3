@@ -8,6 +8,7 @@ using TechXpress_BLL.Dtos;
 using TechXpress_BLL.Services.Contract;
 using TechXpress_DAL.Repositories.Implementation;
 using TechXpress_DAL.Repositories.Contract;
+using TechXpress_DAL.Models;
 
 namespace TechXpress_BLL.Services.Implementation
 {
@@ -74,6 +75,8 @@ namespace TechXpress_BLL.Services.Implementation
                 Brand = P.Brand,
                 Rating = P.Rating,
                 Sold = P.Sold,
+                
+
             }
              ).ToList();
             return products;
@@ -97,6 +100,38 @@ namespace TechXpress_BLL.Services.Implementation
                 Status = c.Status
             }).ToList();
             return categories;
+        }
+        public ProductDto GetProductById(int id)
+        {
+            var product = _ProductRepo.GetByIdAsync(id).Result;
+            if (product == null)
+            {
+                return null;
+            }
+            return new ProductDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Image = product.Image,
+                Price = product.Price,
+                OldPrice = product.OldPrice,
+                HasDiscount = product.HasDiscount,
+                Discount = product.Discount,
+                State = product.State,
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
+                BrandId = product.BrandId,
+                Rating = product.Rating,
+                Sold = product.Sold,
+                CategoryName = product.Category.Name,
+                InStock = product.InStock,
+                Reviews = product.Reviews,
+                Details = product.Details,
+                SalesPercentage = product.SalesPercentage,
+                IsNew = product.IsNew,
+            };
+           
         }
         public List<ProductDto> GetProductsByBrandIds(List<int> brands)
         {

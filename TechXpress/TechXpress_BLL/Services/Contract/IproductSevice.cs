@@ -14,6 +14,7 @@ namespace TechXpress_BLL.Services.Contract
         public List<BrandDto> GetAllBrands();
         public List<ProductDto> GetProductsByBrandIds(List<int> brands);
         public List<categoriesDto> GetAllCategories();
+        public ProductDto GetProductById(int id);
         public int AddProduct(ProductDto product);
         int UpdateProduct(ProductDto existingProduct);
         int DeleteProduct(int id);

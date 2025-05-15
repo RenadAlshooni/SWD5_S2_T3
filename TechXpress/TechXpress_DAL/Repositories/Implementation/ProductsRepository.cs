@@ -50,6 +50,13 @@ namespace TechXpress_DAL.Repositories.Implementation
                 .Where(p => p.CategoryId == id)
                 .ToList();
         }
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
         public List<Product> GetProductsByBrandID(List<int> brandIds)
         {
 

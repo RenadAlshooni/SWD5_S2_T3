@@ -10,6 +10,7 @@ namespace TechXpress.Models
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public decimal OldPrice { get; set; }
+
         public string Image { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -22,6 +23,11 @@ namespace TechXpress.Models
         public bool HasDiscount { get; set; } = false;
         public int Discount { get; set; } = 0;
         public bool IsDeleted { get; set; } = false;
+        public bool InStock { get; set; } = true;
+        public string Reviews { get; set; } = string.Empty;
+        public string Details { get; set; } = string.Empty;
+        public int SalesPercentage { get; set; } = 0;
+        public bool IsNew { get; set; } = false;
         public string State { get; set; } = "New";
         public Category? Category { get; set; }
         public int CategoryId { get; set; }

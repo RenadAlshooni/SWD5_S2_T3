@@ -29,11 +29,19 @@ namespace TechXpress_BLL.Dtos
         public string State { get; set; } = "New";
         public Category? Category { get; set; }
         public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public bool InStock { get; set; } = true;
+        public string Reviews { get; set; } = string.Empty;
+        public string Details { get; set; } = string.Empty;
+        public int SalesPercentage { get; set; } = 0;
+        public bool IsNew { get; set; } = false;
 
         public int BrandId { get; set; }
         public Brand? Brand { get; set; }
 
         public List<ProductColor>? productColors { get; set; }
         public List<OrderItem>? OrderItems { get; set; }
+
+        
     }
 }
