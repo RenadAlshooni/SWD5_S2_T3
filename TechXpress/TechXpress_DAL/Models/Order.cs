@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TechXpress.Models
 {
@@ -14,5 +15,17 @@ namespace TechXpress.Models
         public int UserId { get; set; }
         public ApplicationUser? User { get; set; }
         public List<OrderItem>? OrderItems { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        [Required]
+        public string ZipCode { get; set; }
+        public string OrderStatus { get; set; }
+
     }
 }

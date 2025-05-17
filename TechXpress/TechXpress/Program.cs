@@ -32,6 +32,11 @@ namespace TechXpress
             builder.Services.AddScoped<IWishlistService, WishlistService>();
 
             builder.Services.AddScoped<IproductSevice, ProductServices>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddHttpContextAccessor();
+
+
+
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

@@ -12,8 +12,8 @@ using TechXpress.Context;
 namespace TechXpress_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250515123153_In2")]
-    partial class In2
+    [Migration("20250517133837_InitialDb")]
+    partial class InitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,6 +270,9 @@ namespace TechXpress_DAL.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
