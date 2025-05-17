@@ -30,13 +30,12 @@ namespace TechXpress
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
             builder.Services.AddScoped<IWishlistService, WishlistService>();
-
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IproductSevice, ProductServices>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddHttpContextAccessor();
-
-
-
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

@@ -122,6 +122,7 @@ namespace TechXpress.Controllers
                     ProductName = c.ProductName,
                     Price = c.Price,
                     Quantity = c.Quantity
+                    
                 })
                 .ToList();
 
