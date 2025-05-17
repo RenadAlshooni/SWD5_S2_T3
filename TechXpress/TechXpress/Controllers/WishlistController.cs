@@ -20,6 +20,12 @@ namespace TechXpress.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var wishlistItems = await _wishlistService.GetUserWishlistAsync(userId);
 
+            var carts = _context.Carts.ToList();
+            int cartCount = carts.Count(c => c.UserId == userId && !c.IsDeleted);
+            var Wishlists = _context.Wishlists.ToList();
+            int wishlistCount = Wishlists.Count(c => c.UserId == userId);
+            ViewBag.Carts = cartCount;
+            ViewBag.Wishlists = wishlistCount;
             return View(wishlistItems);
         }
 

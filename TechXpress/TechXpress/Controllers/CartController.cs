@@ -45,6 +45,12 @@ namespace TechXpress.Controllers
             var userCart = cart.Where(c => c.UserId == userId && c.IsDeleted == false).ToList();
             var totalPrice = userCart.Sum(c => c.Price * c.Quantity);
             ViewBag.TotalPrice = totalPrice;
+            var carts = _context.Carts.ToList();
+            int cartCount = carts.Count(c => c.UserId == userId && !c.IsDeleted);
+            var Wishlists = _context.Wishlists.ToList();
+            int wishlistCount = Wishlists.Count(c => c.UserId == userId);
+            ViewBag.Carts = cartCount;
+            ViewBag.Wishlists = wishlistCount;
             return View(userCart);
         }
         public IActionResult Update(int productId,int Quantity)
@@ -80,6 +86,7 @@ namespace TechXpress.Controllers
                 });
             }
             _context.SaveChanges();
+            
             return RedirectToAction("Index");
         }
 
@@ -93,6 +100,7 @@ namespace TechXpress.Controllers
                 _context.Remove(cartItem);
                 _context.SaveChanges();
             }
+            
             return RedirectToAction("Index");
         }
         public IActionResult ClearCart()

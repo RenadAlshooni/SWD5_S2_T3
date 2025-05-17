@@ -113,11 +113,9 @@ namespace TechXpress.Controllers
                 return new List<CartItemViewModel>();
             }
 
-            var userIdInt = int.Parse(userId);
 
             var cartItems = _db.Carts
                 .Where(c => c.UserId == userId)
-                .Include(c => c.ProductName)
                 .Select(c => new CartItemViewModel
                 {
                     ProductId = c.ProductId,
