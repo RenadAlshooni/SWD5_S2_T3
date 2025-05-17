@@ -8,11 +8,11 @@ namespace TechXpress.Controllers
     public class WishlistController : Controller
     {
         private readonly IWishlistService _wishlistService;
-        private readonly ApplicationDbContext _context;
-        public WishlistController(ApplicationDbContext context,IWishlistService wishlistService)
+       
+        public WishlistController(IWishlistService wishlistService)
         {
             _wishlistService = wishlistService;
-            _context = context;
+           
         }
 
         public async Task<IActionResult> Index()
@@ -28,9 +28,6 @@ namespace TechXpress.Controllers
             ViewBag.Wishlists = wishlistCount;
             return View(wishlistItems);
         }
-
-        
-        
        
         public async Task<IActionResult> AddItem(int productId)
         {
